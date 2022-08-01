@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 13:44:10 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:46:48 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ t_shapes		*shapes_init(void *content, int type);
 void			shapes_free(t_shapes *shapes);
 void			shapes_add(t_shapes *shapes, void *content, int type);
 
+//t_light Utils
+void	light_free(t_light *light);
+
 //Geometry Utils
 double			get_angle(t_line *v1, t_line *v2);
 
@@ -109,5 +112,8 @@ double			get_angle(t_line *v1, t_line *v2);
 unsigned int	color_addition(unsigned int c1, unsigned int c2);
 unsigned int	color_product(unsigned int c1, unsigned int c2, double alpha);
 unsigned int	color_ratio(unsigned int color, double ratio);
+
+//Env Utils
+void	env_free(t_env *env);
 
 #endif
