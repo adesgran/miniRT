@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 19:36:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/01 19:58:32 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	light_free(t_light *light);
 
 //Geometry Utils
 double			get_angle(t_line *v1, t_line *v2);
-void			matrix_rotation(t_coord *p, double ax, double ay)
+void			matrix_rotation(t_coord *p, double ax, double ay);
 
 //Colors Utils
 unsigned int	color_addition(unsigned int c1, unsigned int c2);
@@ -117,4 +117,5 @@ unsigned int	color_ratio(unsigned int color, double ratio);
 //Env Utils
 void	env_free(t_env *env);
 
+t_env	*get_env(void);
 #endif
