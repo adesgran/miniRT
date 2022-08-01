@@ -1,6 +1,8 @@
 # Perso
+a.out
 *.swp
-miniRT
+main.c
+*.sh
 
 # Prerequisites
 *.d

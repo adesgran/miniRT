@@ -1,7 +1,18 @@
-# Perso
-*.swp
-miniRT
+## Mlx related
+Makefile.gen
+/test/mlx-test
 
+## Editor
+.vscode/*
+*~
+\#*\#
+
+## Other
+.DS_STORE
+
+
+
+## Template from https://github.com/github/gitignore
 # Prerequisites
 *.d
 
