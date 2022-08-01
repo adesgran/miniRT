@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 18:22:23 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:31:35 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 
 	vars = init_vars();
 	if (!vars)
-		return (printf("\033[0;31mError while generating vars\033[0m\n"), 1);
+		return (ft_putstr_fd("\033[0;31mError while generating vars\033[0m\n", 2), 1);
 	minirt(vars);
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
 	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
