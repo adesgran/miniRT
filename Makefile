@@ -3,7 +3,7 @@ NAME = miniRT
 CC = gcc
 C_FLAGS = -Wall -Wextra -Werror
 
-C_ROOT = main put_pixel init_vars
+C_ROOT = main put_pixel init_vars geometry_utils t_shapes_utils colors_utils
 
 C_FILES = $(addsuffix .c, $(C_ROOT))
 

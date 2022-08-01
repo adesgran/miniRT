@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 12:28:38 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:44:10 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,20 @@ typedef struct s_env {
 	unsigned int	ambiant_light;
 }	t_env;
 
-void	put_pixel(t_data *img, int x, int y, ...);
-t_vars	*init_vars(void);
+void			put_pixel(t_data *img, int x, int y, ...);
+t_vars			*init_vars(void);
+
+//t_shapes Utils
+t_shapes		*shapes_init(void *content, int type);
+void			shapes_free(t_shapes *shapes);
+void			shapes_add(t_shapes *shapes, void *content, int type);
+
+//Geometry Utils
+double			get_angle(t_line *v1, t_line *v2);
+
+//Colors Utils
+unsigned int	color_addition(unsigned int c1, unsigned int c2);
+unsigned int	color_product(unsigned int c1, unsigned int c2, double alpha);
+unsigned int	color_ratio(unsigned int color, double ratio);
 
 #endif
