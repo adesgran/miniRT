@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   colors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:36:13 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 13:47:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:28:28 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#include <miniRT.h>
 
 unsigned int	color_addition(unsigned int c1, unsigned int c2)
 {
