@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 12:25:03 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:22:23 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(void)
 		return (printf("\033[0;31mError while generating vars\033[0m\n"), 1);
 	minirt(vars);
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
+	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
 	mlx_loop(vars->mlx);
 	mlx_destroy_image(vars->mlx, vars->img->img);
 	mlx_destroy_window(vars->mlx, vars->win);
