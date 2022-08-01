@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 18:46:48 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/01 19:36:35 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	light_free(t_light *light);
 
 //Geometry Utils
 double			get_angle(t_line *v1, t_line *v2);
+void			matrix_rotation(t_coord *p, double ax, double ay)
 
 //Colors Utils
 unsigned int	color_addition(unsigned int c1, unsigned int c2);
