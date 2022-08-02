@@ -4,7 +4,8 @@ CC = gcc
 C_FLAGS = -Wall -Wextra -Werror
 
 C_ROOT = main put_pixel init_vars geometry_utils t_shapes_utils colors_utils get_env \
-	t_light_utils t_env_utils matrix_rotation
+	t_light_utils t_env_utils matrix_rotation parser parser_utils parsing_error atod \
+	read_color parse_ambiantlight
 
 C_FILES = $(addsuffix .c, $(C_ROOT))
 

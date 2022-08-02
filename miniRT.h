@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 19:58:32 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:43:54 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <libft.h>
 # include <mlx.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <math.h>
 
 # define KEY_UP 119
@@ -118,4 +121,13 @@ unsigned int	color_ratio(unsigned int color, double ratio);
 void	env_free(t_env *env);
 
 t_env	*get_env(void);
+
+//Parsing
+char	**split_spaces(char *str);
+double	atod(char *str, int *error);
+unsigned int	read_color(char *str, int *err);
+t_env	*parser(char *filename);
+void	parsing_error(char *msg);
+int	parse_ambiantlight(t_env *env, char **tab);
+
 #endif
