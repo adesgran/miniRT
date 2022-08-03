@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/02 19:03:00 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:24:37 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	get_key(int keycode, t_vars *vars)
 void	minirt(t_vars *vars, t_env *env)
 {
 	printf("Color : %x\n", env->ambiant_light);
+	if (env->light)
+		printf("LIGHT: Color=%x pos=%f/%f/%f\n", env->light->color, env->light->pos.x, env->light->pos.y, env->light->pos.z);
 	(void)vars;
 	(void)env;
 }
@@ -36,13 +38,13 @@ int	main(int ac, char **av)
 	t_vars	*vars;
 	t_env	*env;
 
+	if (ac != 2)
+		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
 	printf("ENV DONE\n");
 	vars = init_vars();
 	if (!vars)
 		return (ft_putstr_fd("\033[0;31mError while generating vars\033[0m\n", 2), 1);
-	if (ac != 2)
-		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	minirt(vars, env);
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
 	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
@@ -53,5 +55,6 @@ int	main(int ac, char **av)
 	free(vars->mlx);
 	free(vars->img);
 	free(vars);
+	env_free(env);
 	return (0);
 }

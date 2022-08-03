@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:33:51 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 18:38:42 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:52:29 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	light_free(t_light *light)
 {
-	t_light	*tmp;
-
-	while (light)
-	{
-		tmp = light;
-		light = light->next;
-		free(tmp);
-	}
+	light_free(light->next);
+	if (light)
+		free(light);
 }

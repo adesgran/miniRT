@@ -6,11 +6,11 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:56:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/02 17:23:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:29:40 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <miniRT.h>
 
 static unsigned int	next_size(char *str)
 {

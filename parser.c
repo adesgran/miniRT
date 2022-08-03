@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:34:14 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/02 19:08:38 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:51:14 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static int	fill_env(char *line, t_env *env)
 		return (1);
 	if (!ft_strcmp(tab[0], "A"))
 		return (parse_ambiantlight(env, tab));
+	else if (!ft_strcmp(tab[0], "L"))
+		return (parse_light(env, tab));
 	/*
 	else if (!ft_strcmp(tab[0], "C"))
 		return (parse_camera(env, tab));
-	else if (!ft_strcmp(tab[0], "L"))
-		return (parse_light(env, tab));
 	else if (!ft_strcmp(tab[0], "sp"))
 		return (parse_sphere(env, tab));
 	else if (!ft_strcmp(tab[0], "pl"))
@@ -34,6 +34,7 @@ static int	fill_env(char *line, t_env *env)
 		return (parse_cylindre(env, tab));
 	*/
 	ft_free_tabstr(tab);
+	
 	return (1);
 }
 
@@ -49,11 +50,19 @@ t_env	*parser(char *filename)
 	res = malloc(sizeof(t_env));
 	if (!res)
 		return (close(fd), res);
+	res->light = NULL;
+	res->shapes = NULL;
+	res->camera = NULL;
 	line = ft_get_next_line(fd);
 	while (line)
 	{
 		if (fill_env(line, res))
-			return (env_free(res), parsing_error("Please send a valid .rt file"), NULL);
+		{
+			printf("test\n");
+			env_free(res);
+			return (env_free(res) \
+					, parsing_error("Please send a valid .rt file"), NULL);
+		}
 		free(line);
 		line = ft_get_next_line(fd);
 	}

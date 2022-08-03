@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/02 17:43:54 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:37:19 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_pixel {
 
 typedef struct s_light {
 	t_coord			pos;
-	double			color;
+	unsigned int	color;
 	struct s_light	*next;
 }	t_light;
 
@@ -129,5 +129,7 @@ unsigned int	read_color(char *str, int *err);
 t_env	*parser(char *filename);
 void	parsing_error(char *msg);
 int	parse_ambiantlight(t_env *env, char **tab);
+int parse_light(t_env *env, char **tab);
+void	read_coord(char *str, t_coord *coord, int *err);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:57:25 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/02 19:07:07 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:46:46 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	**split_spaces(char *str)
 
 	size = strs_len(str);
 	if (!size)
-		return(NULL);
+		return (NULL);
 	res = malloc(sizeof(char *) * (size + 1));
 	if (!res)
 		return (res);
 	i = 0;
-	while(i < size)
+	while (i < size)
 	{
 		res[i] = ft_strndup(str, (size_t)str_len(str));
 		if (!res[i])
