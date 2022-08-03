@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 19:59:10 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:12:35 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,53 @@ int	get_key(int keycode, t_vars *vars)
 	return (0);
 }
 
-//Fonction Principale
-void	minirt(t_vars *vars, t_env *env)
+t_line	*linecpy(t_camera *camera, int x, int y)
 {
+	t_line	*line;
+
+	line = malloc(sizeof(t_line));
+	if (!line)
+		return (NULL);
+	line->pos.x = camera->pos.x;
+	line->pos.y = camera->pos.y;
+	line->pos.z = camera->pos.z;
+	line->dir.x = camera->dir.x;
+	line->dir.y = camera->dir.y;
+	line->dir.z = camera->dir.z;
+	matrix_rotation(&(line->dir), x, y);
+	return (line);
+}
+
+//Fonction Principale
+int	minirt(t_vars *vars, t_env *env)
+{
+	int		i;
+	int		j;
+	double	x;
+	double	y;
+	t_line	*line;
+
+	j = 0;
+	while (j < W_HEIGHT)
+	{
+		y = env->camera->fov / W_WIDTH * (W_HEIGHT / 2.0 - (double)j) * M_PI / 180.0;
+		i = 0;
+		while (i < W_WIDTH)
+		{
+			x = env->camera->fov * ((double)i / W_WIDTH - 1.0 / 2.0) * M_PI / 180.0;
+			line = linecpy(env->camera, x, y);
+			if (!line)
+				return (1); //free + mlx_loop_end
+			printf("angle for j = %d i = %d : %f & %f\n", j, i, y, x);
+			// on lance le rayon du pixel x;y
+			// on voit si le rayon rencontre un objet
+			// on attribue la bonne couleur au pixel
+			i++;
+		}
+		j++;
+	}
 	(void)vars;
-	(void)env;
+	return (0); //free + mlx_loop_end
 }
 
 int	main(void)

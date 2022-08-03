@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 19:58:32 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:47:24 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define KEY_ZOOM_OUT 65453
 # define KEY_ROT_LEFT 113
 # define KEY_ROT_RIGHT 101
-# define W_HEIGHT 1000
-# define W_WIDTH 1000
+# define W_HEIGHT 100
+# define W_WIDTH 100
 # define SPHERE 101
 
 typedef struct s_data {
