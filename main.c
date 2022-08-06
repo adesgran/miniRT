@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 18:24:37 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:33:24 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int	get_key(int keycode, t_vars *vars)
 //Fonction Principale
 void	minirt(t_vars *vars, t_env *env)
 {
+	if (!env)
+	{
+		printf("ERROR EMPTY ENV\n");
+		return ;
+	}
 	printf("Color : %x\n", env->ambiant_light);
 	if (env->light)
 		printf("LIGHT: Color=%x pos=%f/%f/%f\n", env->light->color, env->light->pos.x, env->light->pos.y, env->light->pos.z);

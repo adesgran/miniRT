@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:00:24 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 18:36:28 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:48:26 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	read_coord(char *str, t_coord *coord, int *err)
 	coord->z = 0;
 	*err = 0;
 	tab = ft_split(str, ',');
-	printf("%d\n", count_char(str, ','));
-	if (!tab || ft_tablen((void **)tab) != 3 || count_char(str, ',') != 3)
+	if (!tab || ft_tablen((void **)tab) != 3 || count_char(str, ',') != 2)
 		return (ft_free_tabstr(tab), set_error(err));
 	coord->x = atod(tab[0], err);
 	if (*err)

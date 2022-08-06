@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:49:12 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 18:49:16 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:48:51 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,14 @@ int parse_light(t_env *env, char **tab)
 	if (!light)
 		return (ft_free_tabstr(tab), 1);
 	err = 0;
+	printf("tab[1] = %s\n", tab[1]);
 	read_coord(tab[1], &(light->pos),  &err);
-	printf("%d\n", err);
 	if (err)
 		return (free(light), ft_free_tabstr(tab), 1);
-	printf("HERE\n");
-	color = read_color(tab[2], &err);
-	printf("HERE\n");
+	color = read_color(tab[3], &err);
 	if (err)
 		return (free(light), ft_free_tabstr(tab), 1);
-	ratio = atod(tab[3], &err);
+	ratio = atod(tab[2], &err);
 	if (err || ratio > 1.0 || ratio < 0.0)
 		return (free(light), ft_free_tabstr(tab), 1);
 	light->color = color_ratio(color, ratio);

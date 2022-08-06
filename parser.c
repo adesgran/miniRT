@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:34:14 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 18:51:14 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:49:07 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_env	*parser(char *filename)
 	{
 		if (fill_env(line, res))
 		{
-			printf("test\n");
 			env_free(res);
 			return (env_free(res) \
 					, parsing_error("Please send a valid .rt file"), NULL);
