@@ -23,32 +23,29 @@ int	get_key(int keycode, t_vars *vars)
 	return (0);
 }
 
-//Fonction Principale
-void	minirt(t_vars *vars, t_env *env)
+t_line	*linecpy(t_camera *camera, int x, int y)
 {
-	if (!env)
-	{
-		printf("ERROR EMPTY ENV\n");
-		return ;
-	}
-	printf("Color : %x\n", env->ambiant_light);
-	if (env->light)
-		printf("LIGHT: Color=%x pos=%f/%f/%f\n", env->light->color, env->light->pos.x, env->light->pos.y, env->light->pos.z);
-	if (env->camera)
-		printf("CAMERA : Fov=%f pos=%f/%f/%f dir=%f/%f/%f\n", env->camera->fov, env->camera->pos.x, env->camera->pos.y, env->camera->pos.z, env->camera->dir.x, env->camera->dir.y, env->camera->dir.z);
-	t_shapes *shapes = env->shapes;
-	while (shapes)
-	{
-		if (shapes->type == SPHERE)
-		{
-			t_sphere *sp = shapes->content;
-			printf("SPHERE : pos=%f/%f/%f r=%f color=%x\n", sp->pos.x, sp->pos.y, sp->pos.z, sp->r, sp->color);
-		}
-		shapes = shapes->next;
-	}
+	t_line	*line;
+
+	line = malloc(sizeof(t_line));
+	if (!line)
+		return (NULL);
+	line->pos.x = camera->pos.x;
+	line->pos.y = camera->pos.y;
+	line->pos.z = camera->pos.z;
+	line->dir.x = camera->dir.x;
+	line->dir.y = camera->dir.y;
+	line->dir.z = camera->dir.z;
+	matrix_rotation(&(line->dir), x, y);
+	return (line);
+}
+
+//Fonction Principale
+int	minirt(t_vars *vars, t_env *env)
+{
 
 	(void)vars;
-	(void)env;
+	return (0);
 }
 
 int	main(int ac, char **av)
