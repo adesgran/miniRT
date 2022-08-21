@@ -3,12 +3,15 @@ NAME = miniRT
 CC = gcc
 C_FLAGS = -Wall -Wextra -Werror
 
-C_ROOT = main put_pixel init_vars geometry_utils t_shapes_utils colors_utils get_env \
-	t_light_utils t_env_utils matrix_rotation parser parser_utils parsing_error atod \
-	read_color parse_ambiantlight read_coord parse_light parse_camera parse_sphere \
-	parse_cylindre parse_plan
+C_ROOT = main init_vars
 
-C_FILES = $(addsuffix .c, $(C_ROOT))
+C_PARSING = parser parser_utils parsing_error atod read_color parse_ambiantlight \
+	read_coord parse_light parse_camera parse_sphere parse_cylindre parse_plan
+
+C_UTILS = colors_utils put_pixel geometry_utils t_shapes_utils t_light_utils \
+	t_env_utils matrix_rotation
+
+C_FILES = $(addsuffix .c, $(C_ROOT) $(addprefix parsing/, $(C_PARSING)) $(addprefix utils/, $(C_UTILS)))
 
 O_FILES = $(C_FILES:c=o)
 
