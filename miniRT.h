@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 16:02:32 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:38:57 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,14 @@ void			shapes_free(t_shapes *shapes);
 void			shapes_add(t_shapes *shapes, void *content, int type);
 
 //t_light Utils
-void	light_free(t_light *light);
+void			light_free(t_light *light);
 
 //Geometry Utils
 double			get_angle(t_line *v1, t_line *v2);
+double 			get_dist(t_coord a, t_coord b);
+double			max(double a, double b);
+
+//Matrix Rotation
 void			matrix_rotation(t_coord *p, double ax, double ay);
 
 //Colors Utils
@@ -134,22 +138,22 @@ unsigned int	color_product(unsigned int c1, unsigned int c2, double alpha);
 unsigned int	color_ratio(unsigned int color, double ratio);
 
 //Env Utils
-void	env_free(t_env *env);
+void			env_free(t_env *env);
 
-t_env	*get_env(void);
+t_env			*get_env(void);
 
 //Parsing
-char	**split_spaces(char *str);
-double	atod(char *str, int *error);
+char			**split_spaces(char *str);
+double			atod(char *str, int *error);
 unsigned int	read_color(char *str, int *err);
-t_env	*parser(char *filename);
-void	parsing_error(char *msg);
-int	parse_ambiantlight(t_env *env, char **tab);
-int parse_light(t_env *env, char **tab);
-int parse_camera(t_env *env, char **tab);
-int	parse_sphere(t_env *env, char **tab);
-int	parse_cylindre(t_env *env, char **tab);
-int	parse_plan(t_env *env, char **tab);
-void	read_coord(char *str, t_coord *coord, int *err);
+t_env			*parser(char *filename);
+void			parsing_error(char *msg);
+int				parse_ambiantlight(t_env *env, char **tab);
+int 			parse_light(t_env *env, char **tab);
+int 			parse_camera(t_env *env, char **tab);
+int				parse_sphere(t_env *env, char **tab);
+int				parse_cylindre(t_env *env, char **tab);
+int				parse_plan(t_env *env, char **tab);
+void			read_coord(char *str, t_coord *coord, int *err);
 
 #endif
