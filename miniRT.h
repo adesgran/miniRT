@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 12:44:49 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:17:59 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define W_HEIGHT 1000
 # define W_WIDTH 1000
 # define SPHERE 101
+# define CYLINDRE 102
+# define PLAN 103
 
 typedef struct s_data {
 	void	*img;
@@ -72,6 +74,20 @@ typedef struct s_sphere {
 	double			r;
 	unsigned int	color;
 }	t_sphere;
+
+typedef struct s_cylindre {
+	t_coord			pos;
+	t_coord			dir;
+	double			r;
+	double			h;
+	unsigned int	color;
+}	t_cylindre;
+
+typedef struct s_plan {
+	t_coord			pos;
+	t_coord			dir;
+	unsigned int	color;
+}	t_plan;
 
 typedef struct s_pixel {
 	double			dist;
@@ -131,6 +147,9 @@ void	parsing_error(char *msg);
 int	parse_ambiantlight(t_env *env, char **tab);
 int parse_light(t_env *env, char **tab);
 int parse_camera(t_env *env, char **tab);
+int	parse_sphere(t_env *env, char **tab);
+int	parse_cylindre(t_env *env, char **tab);
+int	parse_plan(t_env *env, char **tab);
 void	read_coord(char *str, t_coord *coord, int *err);
 
 #endif

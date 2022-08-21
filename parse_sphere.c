@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_ambiantlight.c                               :+:      :+:    :+:   */
+/*   parse_sphere.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 15:59:46 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 15:47:52 by adesgran         ###   ########.fr       */
+/*   Created: 2022/08/21 13:17:39 by adesgran          #+#    #+#             */
+/*   Updated: 2022/08/21 15:28:14 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-int	parse_ambiantlight(t_env *env, char **tab)
+int	parse_sphere(t_env *env, char **tab)
 {
-	static int		already_set;
-	int				err;
-	double			ratio;
-	unsigned int	color;
+	int			err;
+	t_sphere	*sp;
 
-	if (!already_set)
-		already_set = 1;
+	if (ft_tablen((void **)tab) != 4)
+		return (ft_free_tabstr(tab), 1);
+	sp = malloc(sizeof(t_sphere));
+	if (!sp)
+		return (ft_free_tabstr(tab), 1);
+	if (env->shapes)
+		shapes_add(env->shapes, sp, SPHERE);
 	else
-		return (ft_free_tabstr(tab), 1);
-	if (!env || !tab || ft_tablen((void **)tab) != 3)
-		return (ft_free_tabstr(tab), 1);
+		env->shapes = shapes_init(sp, SPHERE);
 	err = 0;
-	ratio = atod(tab[1], &err);
-	if (err || ratio < 0.0 || ratio > 1.0)
-		return (ft_free_tabstr(tab), 1);
-	color = read_color(tab[2], &err);
+	read_coord(tab[1], &(sp->pos), &err);
 	if (err)
 		return (ft_free_tabstr(tab), 1);
-	color = color_ratio(color, ratio);
-	env->ambiant_light = color;
+	sp->r = atod(tab[2], &err) / 2;
+	if (err || sp->r < 0)
+		return (ft_free_tabstr(tab), 1);
+	sp->color = read_color(tab[3], &err);
+	if (err)
+		return (ft_free_tabstr(tab), 1);
 	return (ft_free_tabstr(tab), 0);
 }

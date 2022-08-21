@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:03:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 12:21:04 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:24:39 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static double	int_atod(char *str, double *d)
 	while (ft_isdigit(*str))
 	{
 		*d *= 10;
-		*d += (double)(*str - '0') * sign;
+		*d += ((double)(*str - '0')) * sign;
 		str++;
 	}
 	return (0);

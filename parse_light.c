@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:49:12 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 12:21:09 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:27:15 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	push_light(t_env *env, t_light *light)
 	*/
 }
 
-
-int parse_light(t_env *env, char **tab)
+int	parse_light(t_env *env, char **tab)
 {
 	int				err;
 	t_light			*light;
@@ -46,7 +45,7 @@ int parse_light(t_env *env, char **tab)
 	if (!light)
 		return (ft_free_tabstr(tab), 1);
 	err = 0;
-	read_coord(tab[1], &(light->pos),  &err);
+	read_coord(tab[1], &(light->pos), &err);
 	if (err)
 		return (free(light), ft_free_tabstr(tab), 1);
 	color = read_color(tab[3], &err);

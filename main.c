@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 12:47:24 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:54:15 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ void	minirt(t_vars *vars, t_env *env)
 		printf("LIGHT: Color=%x pos=%f/%f/%f\n", env->light->color, env->light->pos.x, env->light->pos.y, env->light->pos.z);
 	if (env->camera)
 		printf("CAMERA : Fov=%f pos=%f/%f/%f dir=%f/%f/%f\n", env->camera->fov, env->camera->pos.x, env->camera->pos.y, env->camera->pos.z, env->camera->dir.x, env->camera->dir.y, env->camera->dir.z);
+	t_shapes *shapes = env->shapes;
+	while (shapes)
+	{
+		if (shapes->type == SPHERE)
+		{
+			t_sphere *sp = shapes->content;
+			printf("SPHERE : pos=%f/%f/%f r=%f color=%x\n", sp->pos.x, sp->pos.y, sp->pos.z, sp->r, sp->color);
+		}
+		shapes = shapes->next;
+	}
+
 	(void)vars;
 	(void)env;
 }
