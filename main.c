@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 18:00:22 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:19:07 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,13 @@ unsigned int	shape_finder(t_env *env, t_shapes *shapes, t_line *line)
 {
 	double			u;
 	double			min;
-	unsigned int	color;
+	unsigned int	color1;
+	unsigned int	color2;	
 	// unsigned int	shadow;
 	t_sphere		*tmp;
 
 	min = -1;
-	color = env->ambiant_light;
+	color1 = env->ambiant_light;
 	while (shapes)
 	{
 		if (shapes->type == SPHERE)
@@ -145,16 +146,19 @@ unsigned int	shape_finder(t_env *env, t_shapes *shapes, t_line *line)
 			{
 				min = u;
 				tmp = (t_sphere *)shapes->content;
-				color = tmp->color;
 			}
 		}
 		// autres shapes
 		shapes = shapes->next;
 	}
 	if (min != -1)
-		color = color_ratio(color, get_shade(env, tmp, line, u));
+	{
+		color1 = color_product(tmp->color, env->ambiant_light, 0);
+		color2 = color_ratio(tmp->color, get_shade(env, tmp, line, u));
+		color1 = color_addition(color1, color2);
+	}
 	// color = get_shadow(env, tmp, line, u);
-	return (color);
+	return (color1);
 }
 
 //Fonction Principale
