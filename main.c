@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 16:03:29 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:00:22 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,26 +101,30 @@ unsigned int	get_shadow(t_env *env, t_sphere *sphere, t_line *line, double u)
 	return (color);
 }
 
-// unsigned int	get_shade(t_env *env, t_sphere *sphere, t_line *line, double u)
-// {
-// 	t_line	normale;
-// 	t_line	ray;
+double	get_shade(t_env *env, t_sphere *sphere, t_line *line, double u)
+{
+	t_line	normale;
+	t_line	ray;
+	double	kd;
 	
-// 	ray.pos.x = line->pos.x + u * line->dir.x;
-// 	ray.pos.y = line->pos.y + u * line->dir.y;
-// 	ray.pos.z = line->pos.z + u * line->dir.z;
-// 	ray.dir.x = ray.pos.x - env->light->pos.x;
-// 	ray.dir.y = ray.pos.y - env->light->pos.y;
-// 	ray.dir.z = ray.pos.z - env->light->pos.z;
+	ray.pos.x = line->pos.x + u * line->dir.x;
+	ray.pos.y = line->pos.y + u * line->dir.y;
+	ray.pos.z = line->pos.z + u * line->dir.z;
+	ray.dir.x = ray.pos.x - env->light->pos.x;
+	ray.dir.y = ray.pos.y - env->light->pos.y;
+	ray.dir.z = ray.pos.z - env->light->pos.z;
 
-// 	normale.pos.x = sphere->pos.x;
-// 	normale.pos.y = sphere->pos.y;
-// 	normale.pos.z = sphere->pos.z;
-// 	normale.dir.x = line->pos.x + u * line->dir.x;
-// 	normale.dir.y = line->pos.y + u * line->dir.y;
-// 	normale.dir.z = line->pos.z + u * line->dir.z;
-	
-// }
+	normale.pos.x = sphere->pos.x;
+	normale.pos.y = sphere->pos.y;
+	normale.pos.z = sphere->pos.z;
+	normale.dir.x = ray.pos.x;
+	normale.dir.y = ray.pos.y;
+	normale.dir.z = ray.dir.z;
+	//Ld = kd (I/r^2) max(0, n · l)
+	kd = 1000;
+	return (kd * (1/pow(get_dist(normale.pos, env->light->pos), 2))
+		* max(0, cos(get_angle(&normale, &ray))));
+}
 
 unsigned int	shape_finder(t_env *env, t_shapes *shapes, t_line *line)
 {
@@ -147,6 +151,8 @@ unsigned int	shape_finder(t_env *env, t_shapes *shapes, t_line *line)
 		// autres shapes
 		shapes = shapes->next;
 	}
+	if (min != -1)
+		color = color_ratio(color, get_shade(env, tmp, line, u));
 	// color = get_shadow(env, tmp, line, u);
 	return (color);
 }
@@ -169,7 +175,7 @@ int	minirt(t_vars *vars, t_env *env)
 		while (i < W_WIDTH)
 		{
 			ax = env->camera->fov * ((double)i / W_WIDTH - 1.0 / 2.0) * M_PI / 180.0;
-			line = linecpy(env->camera, ax, ay);
+			line = linecpy(env->camera, ay, -ax);
 			if (!line)
 				return (1); //free + mlx_loop_end
 			color = shape_finder(env, env->shapes, line);

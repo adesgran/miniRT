@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:36:13 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 15:25:28 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:38:25 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ unsigned int	color_ratio(unsigned int color, double ratio)
 	double	b;
 
 	r = ((double)(color / 0x010000)) * ratio;
+	if (r > 255)
+		r = 255;
 	g = ((double)((color % 0x010000) / 0x000100)) * ratio;
+	if (g > 255)
+		g = 255;
 	b = ((double)((color % 0x000100) / 0x000001)) * ratio;
+	if (b > 255)
+		b = 255;
 	color = (unsigned int)r * 0x010000 + (unsigned int)g * 0x000100;
 	color += (unsigned int)b;
 	return (color);
