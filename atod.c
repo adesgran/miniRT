@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:03:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/06 15:44:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:21:04 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ double	atod(char *str, int *error)
 	*error = int_atod(str, &res);
 	if (*error)
 		return (0);
+	if (*str == '-' || *str == '+')
+		str++;
 	while (ft_isdigit(*str))
 		str++;
 	if (!*str)

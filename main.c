@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/06 15:33:24 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:47:24 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	minirt(t_vars *vars, t_env *env)
 	printf("Color : %x\n", env->ambiant_light);
 	if (env->light)
 		printf("LIGHT: Color=%x pos=%f/%f/%f\n", env->light->color, env->light->pos.x, env->light->pos.y, env->light->pos.z);
+	if (env->camera)
+		printf("CAMERA : Fov=%f pos=%f/%f/%f dir=%f/%f/%f\n", env->camera->fov, env->camera->pos.x, env->camera->pos.y, env->camera->pos.z, env->camera->dir.x, env->camera->dir.y, env->camera->dir.z);
 	(void)vars;
 	(void)env;
 }

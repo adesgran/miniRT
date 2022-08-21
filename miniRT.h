@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 18:37:19 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:44:49 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ t_env	*parser(char *filename);
 void	parsing_error(char *msg);
 int	parse_ambiantlight(t_env *env, char **tab);
 int parse_light(t_env *env, char **tab);
+int parse_camera(t_env *env, char **tab);
 void	read_coord(char *str, t_coord *coord, int *err);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:27:11 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/06 15:31:41 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:56:45 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	env_free(t_env *env)
 	free(env->camera);
 	light_free(env->light);
 	shapes_free(env->shapes);
+	free(env);
 }

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:49:12 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/06 15:48:51 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:21:09 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int parse_light(t_env *env, char **tab)
 	if (!light)
 		return (ft_free_tabstr(tab), 1);
 	err = 0;
-	printf("tab[1] = %s\n", tab[1]);
 	read_coord(tab[1], &(light->pos),  &err);
 	if (err)
 		return (free(light), ft_free_tabstr(tab), 1);

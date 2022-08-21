@@ -5,7 +5,7 @@ C_FLAGS = -Wall -Wextra -Werror
 
 C_ROOT = main put_pixel init_vars geometry_utils t_shapes_utils colors_utils get_env \
 	t_light_utils t_env_utils matrix_rotation parser parser_utils parsing_error atod \
-	read_color parse_ambiantlight read_coord parse_light
+	read_color parse_ambiantlight read_coord parse_light parse_camera
 
 C_FILES = $(addsuffix .c, $(C_ROOT))
 
@@ -52,5 +52,8 @@ re: fclean all
 
 run: $(NAME)
 	./$(NAME)
+
+test: $(NAME)
+	./$(NAME) test.rt
 
 .PHONY: all clean fclean re

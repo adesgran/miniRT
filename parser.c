@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:34:14 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/06 15:49:07 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:13:41 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	fill_env(char *line, t_env *env)
 		return (parse_ambiantlight(env, tab));
 	else if (!ft_strcmp(tab[0], "L"))
 		return (parse_light(env, tab));
-	/*
 	else if (!ft_strcmp(tab[0], "C"))
 		return (parse_camera(env, tab));
+	/*
 	else if (!ft_strcmp(tab[0], "sp"))
 		return (parse_sphere(env, tab));
 	else if (!ft_strcmp(tab[0], "pl"))
@@ -58,7 +58,12 @@ t_env	*parser(char *filename)
 	{
 		if (fill_env(line, res))
 		{
-			env_free(res);
+			while (line)
+			{
+				free(line);
+				line = ft_get_next_line(fd);
+			}
+			//env_free(res);
 			return (env_free(res) \
 					, parsing_error("Please send a valid .rt file"), NULL);
 		}
