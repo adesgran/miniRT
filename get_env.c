@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:44:29 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 12:07:34 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:25:50 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ t_env	*get_env(void)
 	res->camera->dir.y = 0;
 	res->camera->dir.z = 1;
 	res->camera->fov = 70.0;
-
 	sp = malloc(sizeof(*sp));
 	sp->pos.x = 0;
 	sp->pos.y = 0;
 	sp->pos.z = 10;
 	sp->color = 0xff0000;
 	sp->r = 3;
-
 	res->shapes = malloc(sizeof(t_shapes));
 	res->shapes->next = NULL;
 	res->shapes->content = (void *)sp;

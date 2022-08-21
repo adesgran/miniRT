@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 13:47:24 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:17:59 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <libft.h>
 # include <mlx.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <math.h>
 
 # define KEY_UP 119
@@ -32,6 +35,8 @@
 # define W_HEIGHT 100
 # define W_WIDTH 100
 # define SPHERE 101
+# define CYLINDRE 102
+# define PLAN 103
 
 typedef struct s_data {
 	void	*img;
@@ -70,6 +75,20 @@ typedef struct s_sphere {
 	unsigned int	color;
 }	t_sphere;
 
+typedef struct s_cylindre {
+	t_coord			pos;
+	t_coord			dir;
+	double			r;
+	double			h;
+	unsigned int	color;
+}	t_cylindre;
+
+typedef struct s_plan {
+	t_coord			pos;
+	t_coord			dir;
+	unsigned int	color;
+}	t_plan;
+
 typedef struct s_pixel {
 	double			dist;
 	unsigned int	color;
@@ -77,7 +96,7 @@ typedef struct s_pixel {
 
 typedef struct s_light {
 	t_coord			pos;
-	double			color;
+	unsigned int	color;
 	struct s_light	*next;
 }	t_light;
 
@@ -118,4 +137,19 @@ unsigned int	color_ratio(unsigned int color, double ratio);
 void	env_free(t_env *env);
 
 t_env	*get_env(void);
+
+//Parsing
+char	**split_spaces(char *str);
+double	atod(char *str, int *error);
+unsigned int	read_color(char *str, int *err);
+t_env	*parser(char *filename);
+void	parsing_error(char *msg);
+int	parse_ambiantlight(t_env *env, char **tab);
+int parse_light(t_env *env, char **tab);
+int parse_camera(t_env *env, char **tab);
+int	parse_sphere(t_env *env, char **tab);
+int	parse_cylindre(t_env *env, char **tab);
+int	parse_plan(t_env *env, char **tab);
+void	read_coord(char *str, t_coord *coord, int *err);
+
 #endif
