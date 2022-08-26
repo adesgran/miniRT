@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sphere.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:17:39 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 15:28:14 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:07:02 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	parse_sphere(t_env *env, char **tab)
 	if (!sp)
 		return (ft_free_tabstr(tab), 1);
 	if (env->shapes)
-		shapes_add(env->shapes, sp, SPHERE);
+		shapes_add(env->shapes, sp, SPHERE, sphere_finder);
 	else
-		env->shapes = shapes_init(sp, SPHERE);
+		env->shapes = shapes_init(sp, SPHERE, sphere_finder);
 	err = 0;
 	read_coord(tab[1], &(sp->pos), &err);
 	if (err)
