@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_plan.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:08:30 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 15:22:49 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:14:13 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	parse_plan(t_env *env, char **tab)
 	if (!pl)
 		return (ft_free_tabstr(tab), 1);
 	if (env->shapes)
-		shapes_add(env->shapes, pl, PLAN);
+		shapes_add(env->shapes, pl, PLAN, NULL);
 	else
-		env->shapes = shapes_init(pl, PLAN);
+		env->shapes = shapes_init(pl, PLAN, NULL);
 	err = 0;
 	read_coord(tab[1], &(pl->pos), &err);
 	if (err)

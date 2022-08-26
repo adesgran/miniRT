@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cylindre.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:09:07 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 15:26:40 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:13:37 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	parse_cylindre(t_env *env, char **tab)
 	if (!cy)
 		return (ft_free_tabstr(tab), 1);
 	if (env->shapes)
-		shapes_add(env->shapes, cy, CYLINDRE);
+		shapes_add(env->shapes, cy, CYLINDRE, NULL);
 	else
-		env->shapes = shapes_init(cy, CYLINDRE);
+		env->shapes = shapes_init(cy, CYLINDRE, NULL);
 	if (read_args(cy, tab))
 		return (1);
 	return (ft_free_tabstr(tab), 0);

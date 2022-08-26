@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   t_shapes_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:34:02 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/01 13:34:41 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:09:36 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-t_shapes	*shapes_init(void *content, int type)
+t_shapes	*shapes_init(void *content, int type, double (*ft)(void *, t_line *))
 {
 	t_shapes	*res;
 
@@ -21,11 +21,12 @@ t_shapes	*shapes_init(void *content, int type)
 		return (NULL);
 	res->content = content;
 	res->type = type;
+	res->ft = ft;
 	res->next = NULL;
 	return (res);
 }
 
-void	shapes_add(t_shapes *shapes, void *content, int type)
+void	shapes_add(t_shapes *shapes, void *content, int type, double (*ft)(void *, t_line *))
 {
 	while (shapes->next)
 		shapes = shapes->next;
@@ -35,6 +36,7 @@ void	shapes_add(t_shapes *shapes, void *content, int type)
 	shapes = shapes->next;
 	shapes->content = content;
 	shapes->type = type;
+	shapes->ft = ft;
 	shapes->next = NULL;
 }
 

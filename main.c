@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 18:48:38 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/25 22:48:03 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,127 +40,6 @@ t_line	*linecpy(t_camera *camera, double ax, double ay)
 	return (line);
 }
 
-double	sphere_finder(t_sphere *sphere, t_line *line)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	res;
-	double	u;
-
-	a = pow(line->dir.x, 2) + pow(line->dir.y, 2) + pow(line->dir.z, 2);
-	b = 2 * (line->dir.x * (line->pos.x - sphere->pos.x) + line->dir.y
-			* (line->pos.y - sphere->pos.y) + line->dir.z
-			* (line->pos.z - sphere->pos.z));
-	c = pow(sphere->pos.x, 2) + pow(sphere->pos.y, 2) + pow(sphere->pos.z, 2)
-		+ pow(line->pos.x, 2) + pow(line->pos.y, 2) + pow(line->pos.z, 2) - 2.0
-		* (sphere->pos.x * line->pos.x + sphere->pos.y * line->pos.y
-			+ sphere->pos.z * line->pos.z) - sphere->r * sphere->r;
-	res = b * b - 4 * a * c;
-	if (res < 0) // no intersection
-		u = -1;
-	else if (res == 0) // 1 intersection at u = -b/2a (if u < 0 : sphere is behind camera)
-		u = -b / (2 * a);
-	else if (res > 0) // 2 intersections
-	{
-		u = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
-		if (u < 0)
-			u = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
-	}
-	return (u);
-}
-
-unsigned int	get_shadow(t_env *env, t_sphere *sphere, t_line *line, double u)
-{
-	t_line		ray;
-	t_shapes	*shapes;
-	unsigned int	color;
-	double			x;
-	
-	ray.pos.x = line->pos.x + u * line->dir.x;
-	ray.pos.y = line->pos.y + u * line->dir.y;
-	ray.pos.z = line->pos.z + u * line->dir.z;
-	ray.dir.x = ray.pos.x - env->light->pos.x;
-	ray.dir.y = ray.pos.y - env->light->pos.y;
-	ray.dir.z = ray.pos.z - env->light->pos.z;
-	shapes = env->shapes;
-	color = 0x00ff00;
-	while (shapes)
-	{
-		if (shapes->content != sphere && shapes->type == SPHERE)
-		{
-			x = sphere_finder((t_sphere *)shapes->content, &ray);
-			if (x >= 0)
-			{
-				color = env->ambiant_light;
-			}
-		}
-		shapes = shapes->next;
-	}
-	(void)sphere;
-	return (color);
-}
-
-double	get_shade(t_env *env, t_sphere *sphere, t_line *line, double u)
-{
-	t_line	normale;
-	t_line	ray;
-	double	kd;
-	
-	ray.pos.x = line->pos.x + u * line->dir.x;
-	ray.pos.y = line->pos.y + u * line->dir.y;
-	ray.pos.z = line->pos.z + u * line->dir.z;
-	ray.dir.x = - ray.pos.x + env->light->pos.x;
-	ray.dir.y = - ray.pos.y + env->light->pos.y;
-	ray.dir.z = - ray.pos.z + env->light->pos.z;
-
-	normale.pos.x = sphere->pos.x;
-	normale.pos.y = sphere->pos.y;
-	normale.pos.z = sphere->pos.z;
-	normale.dir.x = ray.pos.x - normale.pos.x;
-	normale.dir.y = ray.pos.y - normale.pos.y;
-	normale.dir.z = ray.dir.z - normale.pos.z;
-	//Ld = kd (I/r^2) max(0, n · l)
-	kd = 1000;
-	return (kd * (1/pow(get_dist(ray.pos, env->light->pos), 2))
-		* max(0, cos(get_angle(&normale, &ray))));
-}
-
-unsigned int	shape_finder(t_env *env, t_shapes *shapes, t_line *line)
-{
-	double			u;
-	double			min;
-	unsigned int	color1;
-	unsigned int	color2;	
-	// unsigned int	shadow;
-	t_sphere		*tmp;
-
-	min = -1;
-	color1 = env->ambiant_light;
-	while (shapes)
-	{
-		if (shapes->type == SPHERE)
-		{
-			u = sphere_finder((t_sphere *)shapes->content, line);
-			if (u >= 0 && (min < 0 || u < min))
-			{
-				min = u;
-				tmp = (t_sphere *)shapes->content;
-			}
-		}
-		// autres shapes
-		shapes = shapes->next;
-	}
-	if (min >= 0)
-	{
-		color1 = color_product(tmp->color, env->ambiant_light, 0);
-		color2 = color_ratio(tmp->color, get_shade(env, tmp, line, min));
-		color1 = color_addition(color1, color2);
-	}
-	// color = get_shadow(env, tmp, line, u);
-	return (color1);
-}
-
 //Fonction Principale
 int	minirt(t_vars *vars, t_env *env)
 {
@@ -182,7 +61,7 @@ int	minirt(t_vars *vars, t_env *env)
 			line = linecpy(env->camera, -ax, ay);
 			if (!line)
 				return (1); //free + mlx_loop_end
-			color = shape_finder(env, env->shapes, line);
+			color = shapes_finder(env, env->shapes, line);
 			put_pixel(vars->img, i, j, color);
 			i++;
 		}

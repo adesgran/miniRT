@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 16:38:57 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:08:29 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_line {
 typedef struct s_shapes {
 	void			*content;
 	int				type;
+	double			(*ft)(void *, t_line *);
 	struct s_shapes	*next;
 }	t_shapes;
 
@@ -116,10 +117,18 @@ typedef struct s_env {
 void			put_pixel(t_data *img, int x, int y, ...);
 t_vars			*init_vars(void);
 
+//Shapes Finder
+double			sphere_finder(void *content, t_line *line);
+unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
+
+//Colors Sphere
+unsigned int	get_shadow(t_env *env, t_sphere *sphere, t_line *line, double u, unsigned int color);
+double			get_shade(t_env *env, t_sphere *sphere, t_line *line, double u);
+
 //t_shapes Utils
-t_shapes		*shapes_init(void *content, int type);
+t_shapes		*shapes_init(void *content, int type, double (*ft)(void *, t_line *));
 void			shapes_free(t_shapes *shapes);
-void			shapes_add(t_shapes *shapes, void *content, int type);
+void			shapes_add(t_shapes *shapes, void *content, int type, double (*ft)(void *, t_line *));
 
 //t_light Utils
 void			light_free(t_light *light);
