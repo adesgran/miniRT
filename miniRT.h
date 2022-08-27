@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/26 15:08:29 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:57:20 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_line {
 typedef struct s_shapes {
 	void			*content;
 	int				type;
-	double			(*ft)(void *, t_line *);
+	double			(*ft_finder)(void *, t_line *);
 	struct s_shapes	*next;
 }	t_shapes;
 
@@ -122,8 +122,9 @@ double			sphere_finder(void *content, t_line *line);
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
 
 //Colors Sphere
-unsigned int	get_shadow(t_env *env, t_sphere *sphere, t_line *line, double u, unsigned int color);
-double			get_shade(t_env *env, t_sphere *sphere, t_line *line, double u);
+// unsigned int	get_shadow(t_env *env, t_sphere *sphere, t_line *line, double u, unsigned int color);
+// double			get_shade(t_env *env, t_sphere *sphere, t_line *line, double u);
+unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, double u);
 
 //t_shapes Utils
 t_shapes		*shapes_init(void *content, int type, double (*ft)(void *, t_line *));

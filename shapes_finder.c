@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/26 15:13:19 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:57:10 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,17 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	color = env->ambiant_light;
 	while (shapes)
 	{
-		u = shapes->ft(shapes->content, line);
+		u = shapes->ft_finder(shapes->content, line);
 		if (u >= 0 && (min < 0 || u < min))
 		{
 			min = u;
 			tmp = (t_sphere *)shapes->content;
 		}
-		// if (shapes->type == SPHERE)
-		// {
-		// 	u = sphere_finder(shapes->content, line);
-		// }
-		// autres shapes
 		shapes = shapes->next;
 	}
 	if (min >= 0)
 	{
-		color = color_addition(color_product(tmp->color, env->ambiant_light, 0),
-			color_ratio(tmp->color, get_shade(env, tmp, line, min)));
-		color = get_shadow(env, tmp, line, min, color);
+		color = get_color_sphere(env, tmp, line, min);
 	}
 	return (color);
 }
