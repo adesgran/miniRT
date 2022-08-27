@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:50:43 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/27 18:59:09 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:59:36 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ unsigned int	get_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned
 			x = shapes->ft_finder(shapes->content, ray);
 			if (x >= 0)
 			{
-				color = color_product(color, 0x717171 , 0.5);
+				//color = color_product(color, 0x717171 , 0.5);
+				color = color_product(curr_sphere->color, env->ambiant_light , 0);
+				break;
 			}
 		}
 		shapes = shapes->next;

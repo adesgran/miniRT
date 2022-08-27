@@ -55,7 +55,7 @@ fclean:
 re: fclean all
 
 run: $(NAME)
-	./$(NAME)
+	./$(NAME) test.rt
 
 test: $(NAME)
 	valgrind --leak-check=full ./$(NAME) test.rt
