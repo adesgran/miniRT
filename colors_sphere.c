@@ -6,13 +6,13 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:50:43 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/27 19:59:36 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:07:08 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-unsigned int	get_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned int color)
+unsigned int	get_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned int *color)
 {
 	t_shapes		*shapes;
 	double			x;
@@ -25,27 +25,33 @@ unsigned int	get_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned
 			x = shapes->ft_finder(shapes->content, ray);
 			if (x >= 0)
 			{
-				//color = color_product(color, 0x717171 , 0.5);
-				color = color_product(curr_sphere->color, env->ambiant_light , 0);
+				// color = color_product(color, 0x717171 , 0.5);
+				*color = color_product(curr_sphere->color, env->ambiant_light , 0);
+				return (1);
 				break;
 			}
 		}
 		shapes = shapes->next;
 	}
-	return (color);
+	return (0);
 }
 
 double	get_shade(t_env *env, t_line *ray, t_line *normale)
 {
 	//Ld = kd (I/r^2) max(0, n · l)
-	return (1000 * (1/pow(get_dist(ray->pos, env->light->pos), 2))
-		* max(0, cos(get_angle(normale, ray))));
+	return (1000 * (1/pow(get_dist(ray->pos, env->light->pos), 2)) * max(0, cos(get_angle(normale, ray))));
+}
+
+double	get_specular_shading(t_env *env, t_line *ray, t_line *normale, t_line *bisector)
+{
+	return (1000 * (1/pow(get_dist(ray->pos, env->light->pos), 2)) * pow(max(0, cos(get_angle(normale, bisector))), 1000));
 }
 
 unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, double u)
 {
 	t_line	ray;
 	t_line	normale;
+	t_line	bisector;
 	unsigned int	color;
 	
 	ray.pos.x = line->pos.x + u * line->dir.x;
@@ -60,8 +66,19 @@ unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, d
 	normale.dir.x = ray.pos.x - normale.pos.x;
 	normale.dir.y = ray.pos.y - normale.pos.y;
 	normale.dir.z = ray.dir.z - normale.pos.z;
-	color = color_addition(color_product(curr_sphere->color, env->ambiant_light, 0),
+	bisector.pos.x = ray.pos.x;
+	bisector.pos.y = ray.pos.y;
+	bisector.pos.z = ray.pos.z;
+	bisector.dir.x = (line->dir.x + ray.dir.x) / sqrt(pow(line->dir.x, 2) + pow(ray.dir.x, 2));
+	bisector.dir.y = (line->dir.y + ray.dir.y) / sqrt(pow(line->dir.y, 2) + pow(ray.dir.y, 2));
+	bisector.dir.z = (line->dir.z + ray.dir.z) / sqrt(pow(line->dir.z, 2) + pow(ray.dir.z, 2));
+
+	if (!get_shadow(env, curr_sphere, &ray, &color))
+	{
+		color = color_addition(color_product(curr_sphere->color, env->ambiant_light, 0),
 			color_ratio(curr_sphere->color, get_shade(env, &ray, &normale)));
-	color = get_shadow(env, curr_sphere, &ray, color);
+	}
+	color = color_addition(color_product(curr_sphere->color, env->light->color, 0),
+		color_ratio(color, get_specular_shading(env, &ray, &normale, &bisector)));
 	return (color);
 }
