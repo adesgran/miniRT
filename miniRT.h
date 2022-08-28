@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:15:52 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:06:16 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,7 @@ double			cylinder_finder(t_shapes *shape, t_line *line);
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
 
 //Colors Sphere
-// unsigned int	get_shadow(t_env *env, t_sphere *sphere, t_line *line, double u, unsigned int color);
-// double			get_shade(t_env *env, t_sphere *sphere, t_line *line, double u);
-unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, double u);
+unsigned int	get_sp_color(t_env *env, t_sphere *curr_sphere, t_line *line, double u);
 
 //t_shapes Utils
 t_shapes		*shapes_init(void *content, int type, double (*ft)(void *, t_line *));

@@ -12,7 +12,7 @@
 
 #include <miniRT.h>
 
-unsigned int	get_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned int *color)
+static unsigned int	sp_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned int *color)
 {
 	t_shapes		*shapes;
 	double			x;
@@ -36,18 +36,18 @@ unsigned int	get_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, unsigned
 	return (0);
 }
 
-double	get_shade(t_env *env, t_line *ray, t_line *normale)
+static double	sp_shade(t_env *env, t_line *ray, t_line *normale)
 {
 	//Ld = kd (I/r^2) max(0, n · l)
 	return (KD * (1/pow(get_dist(ray->pos, env->light->pos), 2)) * max(0, cos(get_angle(normale, ray))));
 }
 
-double	get_specular_shading(t_env *env, t_line *ray, t_line *normale, t_line *bisector)
+static double	sp_specular_shading(t_env *env, t_line *ray, t_line *normale, t_line *bisector)
 {
 	return (KD * (1/pow(get_dist(ray->pos, env->light->pos), 2)) * pow(max(0, cos(get_angle(normale, bisector))), 100));
 }
 
-unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, double u)
+unsigned int	get_sp_color(t_env *env, t_sphere *curr_sphere, t_line *line, double u)
 {
 	t_line	ray;
 	t_line	normale;
@@ -76,14 +76,11 @@ unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, d
 	bisector.dir.z = (-line->dir.z + ray.dir.z) / sqrt(pow(line->dir.z, 2) + pow(ray.dir.z, 2));
 	norm_vector(&bisector.dir);
 
-	if (!get_shadow(env, curr_sphere, &ray, &color))
+	if (!sp_shadow(env, curr_sphere, &ray, &color))
 	{
 		color = color_addition(color_product(curr_sphere->color, env->ambiant_light, 0),
-			color_ratio(curr_sphere->color, get_shade(env, &ray, &normale)));
-		color = color_addition(color, color_ratio(env->light->color, get_specular_shading(env, &ray, &normale, &bisector)));
+			color_ratio(curr_sphere->color, sp_shade(env, &ray, &normale)));
+		color = color_addition(color, color_ratio(env->light->color, sp_specular_shading(env, &ray, &normale, &bisector)));
 	}
-	//color = color_addition(color_product(curr_sphere->color, env->light->color, 0),
-		//color_ratio(color, get_specular_shading(env, &ray, &normale, &bisector)));
-	
 	return (color);
 }
