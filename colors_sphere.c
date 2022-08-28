@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:50:43 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/28 13:07:08 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:13:55 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, d
 	bisector.dir.x = (line->dir.x + ray.dir.x) / sqrt(pow(line->dir.x, 2) + pow(ray.dir.x, 2));
 	bisector.dir.y = (line->dir.y + ray.dir.y) / sqrt(pow(line->dir.y, 2) + pow(ray.dir.y, 2));
 	bisector.dir.z = (line->dir.z + ray.dir.z) / sqrt(pow(line->dir.z, 2) + pow(ray.dir.z, 2));
+	norm_vector(&ray.dir);
+	norm_vector(&normale.dir);
+	norm_vector(&bisector.dir);
 
 	if (!get_shadow(env, curr_sphere, &ray, &color))
 	{
