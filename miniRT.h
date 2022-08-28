@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 13:13:36 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:00:11 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define SPHERE 101
 # define CYLINDRE 102
 # define PLAN 103
+# define KD 100
 
 typedef struct s_data {
 	void	*img;

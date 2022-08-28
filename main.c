@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/25 22:48:03 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:42:07 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_line	*linecpy(t_camera *camera, double ax, double ay)
 	line->dir.x = camera->dir.x;
 	line->dir.y = camera->dir.y;
 	line->dir.z = camera->dir.z;
+	norm_vector(&line->dir);
 	matrix_rotation(&(line->dir), ax, ay);
 	return (line);
 }
@@ -63,6 +64,7 @@ int	minirt(t_vars *vars, t_env *env)
 				return (1); //free + mlx_loop_end
 			color = shapes_finder(env, env->shapes, line);
 			put_pixel(vars->img, i, j, color);
+			free(line);
 			i++;
 		}
 		j++;
@@ -80,6 +82,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
+	norm_vector(&env->camera->dir);
 	printf("ENV DONE\n");
 	vars = init_vars();
 	if (!vars)
