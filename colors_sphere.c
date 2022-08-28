@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:50:43 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/28 17:06:44 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:11:09 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static unsigned int	sp_shadow(t_env *env, t_sphere *curr_sphere, t_line *ray, un
 	{
 		if (shapes->content != curr_sphere)
 		{
-			x = shapes->ft_finder(shapes->content, ray);
+			x = shapes->ft_finder(shapes, ray);
 			if (x >= 0)
 			{
 				// color = color_product(color, 0x717171 , 0.5);

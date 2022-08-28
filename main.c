@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 13:42:07 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:00:25 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	minirt(t_vars *vars, t_env *env)
 	double			ay;
 	t_line			*line;
 	unsigned int	color;
+	unsigned int	tab[W_HEIGHT][W_WIDTH];
 	
 	j = 0;
 	while (j < W_HEIGHT)
@@ -63,13 +64,24 @@ int	minirt(t_vars *vars, t_env *env)
 			if (!line)
 				return (1); //free + mlx_loop_end
 			color = shapes_finder(env, env->shapes, line);
-			put_pixel(vars->img, i, j, color);
+			tab[i][j] = color;
 			free(line);
 			i++;
 		}
 		j++;
 	}
 	printf("calcul end\n");
+	j = 0;
+	while (j < W_HEIGHT)
+	{
+		i = 0;
+		while (i < W_WIDTH)
+		{
+			put_pixel(vars->img, i, j, tab[i][j]);
+			i++;
+		}
+		j++;
+	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 	return (0); //free + mlx_loop_end
 }

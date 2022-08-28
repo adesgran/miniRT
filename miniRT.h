@@ -67,7 +67,7 @@ typedef struct s_line {
 typedef struct s_shapes {
 	void			*content;
 	int				type;
-	double			(*ft_finder)(void *, t_line *);
+	double			(*ft_finder)(struct s_shapes *, t_line *);
 	struct s_shapes	*next;
 }	t_shapes;
 
@@ -119,7 +119,8 @@ void			put_pixel(t_data *img, int x, int y, ...);
 t_vars			*init_vars(void);
 
 //Shapes Finder
-double			sphere_finder(void *content, t_line *line);
+double			sphere_finder(t_shapes *shape, t_line *line);
+double			cylinder_finder(t_shapes *shape, t_line *line);
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
 
 //Colors Sphere

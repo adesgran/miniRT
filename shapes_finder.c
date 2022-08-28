@@ -6,13 +6,13 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/28 17:06:13 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:10:19 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-double	sphere_finder(void *content, t_line *line)
+double	sphere_finder(t_shapes *shape, t_line *line)
 {
 	double	a;
 	double	b;
@@ -21,7 +21,7 @@ double	sphere_finder(void *content, t_line *line)
 	double	u;
 	t_sphere	*sphere;
 
-	sphere = (t_sphere *)content;
+	sphere = (t_sphere *)shape->content;
 	a = pow(line->dir.x, 2) + pow(line->dir.y, 2) + pow(line->dir.z, 2);
 	b = 2 * (line->dir.x * (line->pos.x - sphere->pos.x) + line->dir.y
 			* (line->pos.y - sphere->pos.y) + line->dir.z
@@ -55,7 +55,7 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	color = env->ambiant_light;
 	while (shapes)
 	{
-		u = shapes->ft_finder(shapes->content, line);
+		u = shapes->ft_finder(shapes, line);
 		if (u >= 0 && (min < 0 || u < min))
 		{
 			min = u;
