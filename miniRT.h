@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/27 18:57:20 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:13:36 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void			light_free(t_light *light);
 double			get_angle(t_line *v1, t_line *v2);
 double 			get_dist(t_coord a, t_coord b);
 double			max(double a, double b);
+void			norm_vector(t_coord *v);
 
 //Matrix Rotation
 void			matrix_rotation(t_coord *p, double ax, double ay);
