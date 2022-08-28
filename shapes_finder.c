@@ -65,7 +65,7 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	}
 	if (min >= 0)
 	{
-		color = get_color_sphere(env, tmp, line, min);
+		color = get_sp_color(env, tmp, line, min);
 	}
 	return (color);
 }
