@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:30:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 16:38:47 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:39:44 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,11 @@ double	max(double a, double b)
 		return (a);
 	else
 		return (b);
+}
+
+void	vector_product(t_coord a, t_coord b, t_coord *res)
+{
+	res->x = a.y * b.z - a.z * b.y;
+	res->y = a.z * b.x - a.x * b.z;
+	res->x = a.x * b.y - a.y * b.x;
 }
