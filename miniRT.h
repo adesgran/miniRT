@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:11:50 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:15:52 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_line {
 typedef struct s_shapes {
 	void			*content;
 	int				type;
-	double			(*ft_finder)(t_shapes *, t_line *);
+	double			(*ft_finder)(struct s_shapes *, t_line *);
 	struct s_shapes	*next;
 }	t_shapes;
 
