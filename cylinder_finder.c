@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 15:13:18 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 19:30:31 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 19:59:22 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,16 @@ double	cylinder_finder(t_shapes *shape, t_line *line)
 	r0a1.y = line->pos.y - ra1.dir.y;
 	r0a1.z = line->pos.z - ra1.dir.z;
 
+	ra0.x = 0;
+	ra0.y = 0;
+	ra0.z = 0;
+
 	vector_product(s, r0a1, &ra0);
 	vector_product(ra0, s, &ra0);
+
+	va.x = 0;
+	va.y = 0;
+	va.z = 0;
 
 	vector_product(s, line->dir, &va);
 	vector_product(va, s, &va);
