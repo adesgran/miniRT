@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:09:07 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/26 15:13:37 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:34:37 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	parse_cylindre(t_env *env, char **tab)
 	if (!cy)
 		return (ft_free_tabstr(tab), 1);
 	if (env->shapes)
-		shapes_add(env->shapes, cy, CYLINDRE, NULL);
+		shapes_add(env->shapes, cy, CYLINDRE, cylinder_finder);
 	else
-		env->shapes = shapes_init(cy, CYLINDRE, NULL);
+		env->shapes = shapes_init(cy, CYLINDRE, cylinder_finder);
 	if (read_args(cy, tab))
 		return (1);
 	return (ft_free_tabstr(tab), 0);
