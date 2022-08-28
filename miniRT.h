@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:15:52 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:23:01 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
 unsigned int	get_color_sphere(t_env *env, t_sphere *curr_sphere, t_line *line, double u);
 
 //t_shapes Utils
-t_shapes		*shapes_init(void *content, int type, double (*ft)(void *, t_line *));
+t_shapes		*shapes_init(void *content, int type, double (*ft)(t_shapes *, t_line *));
 void			shapes_free(t_shapes *shapes);
-void			shapes_add(t_shapes *shapes, void *content, int type, double (*ft)(void *, t_line *));
+void			shapes_add(t_shapes *shapes, void *content, int type, double (*ft)(t_shapes *, t_line *));
 
 //t_light Utils
 void			light_free(t_light *light);

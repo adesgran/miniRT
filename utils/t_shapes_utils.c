@@ -6,13 +6,13 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:34:02 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/27 18:58:46 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:22:43 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-t_shapes	*shapes_init(void *content, int type, double (*ft_finder)(void *, t_line *))
+t_shapes	*shapes_init(void *content, int type, double (*ft_finder)(t_shapes *, t_line *))
 {
 	t_shapes	*res;
 
@@ -26,7 +26,7 @@ t_shapes	*shapes_init(void *content, int type, double (*ft_finder)(void *, t_lin
 	return (res);
 }
 
-void	shapes_add(t_shapes *shapes, void *content, int type, double (*ft_finder)(void *, t_line *))
+void	shapes_add(t_shapes *shapes, void *content, int type, double (*ft_finder)(t_shapes *, t_line *))
 {
 	while (shapes->next)
 		shapes = shapes->next;
