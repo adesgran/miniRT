@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/27 18:57:10 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:06:13 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	}
 	if (min >= 0)
 	{
-		color = get_color_sphere(env, tmp, line, min);
+		color = get_sp_color(env, tmp, line, min);
 	}
 	return (color);
 }
