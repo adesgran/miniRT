@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/30 12:40:39 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/01 12:12:21 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ double 			get_dist(t_coord a, t_coord b);
 double			max(double a, double b);
 void			norm_vector(t_coord *v);
 void			vector_product(t_coord *a, t_coord *b, t_coord *res);
+void			coord_sub(t_coord *a, t_coord *b, t_coord *c);
+void			coord_cpy(t_coord *a, t_coord *b);
 
 //Matrix Rotation
 void			matrix_rotation(t_coord *p, double ax, double ay);
