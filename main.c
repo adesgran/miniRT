@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:00:25 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/01 14:32:35 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_line	*linecpy(t_camera *camera, double ax, double ay)
 }
 
 //Fonction Principale
-int	minirt(t_vars *vars, t_env *env)
+int	minirt(t_env *env, unsigned int tab[W_HEIGHT][W_WIDTH])
 {
 	int				i;
 	int				j;
@@ -50,9 +50,9 @@ int	minirt(t_vars *vars, t_env *env)
 	double			ay;
 	t_line			*line;
 	unsigned int	color;
-	unsigned int	tab[W_HEIGHT][W_WIDTH];
 	
 	j = 0;
+	printf("\n");
 	while (j < W_HEIGHT)
 	{
 		ax = env->camera->fov / W_WIDTH * (W_HEIGHT / 2.0 - (double)j) * M_PI / 180.0;
@@ -67,10 +67,19 @@ int	minirt(t_vars *vars, t_env *env)
 			tab[i][j] = color;
 			free(line);
 			i++;
+			printf("\r%.2f%%", ((double)j * 100.0) / (double)W_HEIGHT);
 		}
 		j++;
 	}
-	printf("calcul end\n");
+	printf("\r100%%\ncalcul end\n");
+	return (0); //free + mlx_loop_end
+}
+
+void	show_all(t_vars *vars, unsigned int tab[W_HEIGHT][W_WIDTH])
+{
+	int	i;
+	int	j;
+
 	j = 0;
 	while (j < W_HEIGHT)
 	{
@@ -83,23 +92,23 @@ int	minirt(t_vars *vars, t_env *env)
 		j++;
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
-	return (0); //free + mlx_loop_end
 }
-
 int	main(int ac, char **av)
 {
 	t_vars	*vars;
 	t_env	*env;
+	unsigned int	tab[W_HEIGHT][W_WIDTH];
 
 	if (ac != 2)
 		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
 	norm_vector(&env->camera->dir);
 	printf("ENV DONE\n");
+	minirt(env, tab);
 	vars = init_vars();
 	if (!vars)
 		return (ft_putstr_fd("\033[0;31mError while generating vars\033[0m\n", 2), 1);
-	minirt(vars, env);
+	show_all(vars, tab);
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
 	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
 	mlx_loop(vars->mlx);
