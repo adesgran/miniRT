@@ -3,7 +3,7 @@ NAME = miniRT
 CC = gcc
 C_FLAGS = -Wall -Wextra -Werror
 
-C_ROOT = main init_vars shapes_finder colors_sphere cylinder_finder
+C_ROOT = main init_vars shapes_finder cylinder_finder colors_object
 
 C_PARSING = parser parser_utils parsing_error atod read_color parse_ambiantlight \
 	read_coord parse_light parse_camera parse_sphere parse_cylindre parse_plan

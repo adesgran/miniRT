@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:23:01 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:22:10 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@
 # define CYLINDRE 102
 # define PLAN 103
 # define KD 100
+# define KS 100
+# define KA 100
+
+typedef struct s_color {
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	double			i;
+} t_color;
 
 typedef struct s_data {
 	void	*img;
@@ -68,13 +77,15 @@ typedef struct s_shapes {
 	void			*content;
 	int				type;
 	double			(*ft_finder)(struct s_shapes *, t_line *);
+	t_line			norm;
+	t_color			color;
 	struct s_shapes	*next;
 }	t_shapes;
 
 typedef struct s_sphere {
 	t_coord			pos;
 	double			r;
-	unsigned int	color;
+	t_color			color;
 }	t_sphere;
 
 typedef struct s_cylindre {
@@ -82,23 +93,18 @@ typedef struct s_cylindre {
 	t_coord			dir;
 	double			r;
 	double			h;
-	unsigned int	color;
+	t_color			color;
 }	t_cylindre;
 
 typedef struct s_plan {
 	t_coord			pos;
 	t_coord			dir;
-	unsigned int	color;
+	t_color			color;
 }	t_plan;
-
-typedef struct s_pixel {
-	double			dist;
-	unsigned int	color;
-}	t_pixel;
 
 typedef struct s_light {
 	t_coord			pos;
-	unsigned int	color;
+	t_color			color;
 	struct s_light	*next;
 }	t_light;
 
@@ -112,7 +118,7 @@ typedef struct s_env {
 	t_camera		*camera;
 	t_light			*light;
 	t_shapes		*shapes;
-	unsigned int	ambiant_light;
+	t_color			ambiant_light;
 }	t_env;
 
 void			put_pixel(t_data *img, int x, int y, ...);
@@ -123,8 +129,8 @@ double			sphere_finder(t_shapes *shape, t_line *line);
 double			cylinder_finder(t_shapes *shape, t_line *line);
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
 
-//Colors Sphere
-unsigned int	get_sp_color(t_env *env, t_sphere *curr_sphere, t_line *line, double u);
+//Colors
+unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape);
 
 //t_shapes Utils
 t_shapes		*shapes_init(void *content, int type, double (*ft)(t_shapes *, t_line *));
@@ -144,9 +150,11 @@ void			norm_vector(t_coord *v);
 void			matrix_rotation(t_coord *p, double ax, double ay);
 
 //Colors Utils
-unsigned int	color_addition(unsigned int c1, unsigned int c2);
-unsigned int	color_product(unsigned int c1, unsigned int c2, double alpha);
-unsigned int	color_ratio(unsigned int color, double ratio);
+void			color_addition(t_color *c1, t_color *c2, t_color *res);
+void			color_product(t_color *c1, t_color *c2, t_color *res);
+void			color_ratio(t_color *c1, double ratio, t_color *res);
+unsigned int	color_to_ui(t_color color);
+void			color_cpy(t_color *c1, t_color *c2);
 
 //Env Utils
 void			env_free(t_env *env);
@@ -156,7 +164,7 @@ t_env			*get_env(void);
 //Parsing
 char			**split_spaces(char *str);
 double			atod(char *str, int *error);
-unsigned int	read_color(char *str, int *err);
+void			read_color(char *str, int *err, t_color *color);
 t_env			*parser(char *filename);
 void			parsing_error(char *msg);
 int				parse_ambiantlight(t_env *env, char **tab);

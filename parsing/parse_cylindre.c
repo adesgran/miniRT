@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:09:07 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 15:34:37 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:05:34 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	read_args(t_cylindre *cy, char **tab)
 	cy->h = atod(tab[4], &err);
 	if (err)
 		return (ft_free_tabstr(tab), 1);
-	cy->color = read_color(tab[5], &err);
+	read_color(tab[5], &err, &cy->color);
 	if (err || check_value(cy))
 		return (ft_free_tabstr(tab), 1);
 	return (0);
