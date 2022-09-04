@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:35:43 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:41:16 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	main(int ac, char **av)
 		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
 	norm_vector(&env->camera->dir);
-	print_lst(env->shapes);
 	printf("ENV DONE\n");
 	minirt(env, tab);
 	vars = init_vars();
