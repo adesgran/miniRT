@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:17:39 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/26 15:07:02 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:08:07 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	parse_sphere(t_env *env, char **tab)
 	sp->r = atod(tab[2], &err) / 2;
 	if (err || sp->r < 0)
 		return (ft_free_tabstr(tab), 1);
-	sp->color = read_color(tab[3], &err);
+	read_color(tab[3], &err, &sp->color);
 	if (err)
 		return (ft_free_tabstr(tab), 1);
 	return (ft_free_tabstr(tab), 0);
