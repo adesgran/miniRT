@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/09/04 15:39:39 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:13:18 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	unsigned int	color;
 	t_shapes		*tmp;
 
+	norm_vector(&line->dir);
 	min = -1;
 	color = 0x050515;
 	while (shapes)

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 15:13:18 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 13:47:39 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:12:35 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ double	cylinder_finder(t_shapes *shape, t_line *line)
 
 	cylindre = (t_cylindre *)shape->content;
 	color_cpy(&cylindre->color, &shape->color);
-	norm_vector(&line->dir);
-	norm_vector(&cylindre->dir);
 	t = get_t(shape, line);
 	if (t < 0)
 		return (-1);
@@ -30,7 +28,7 @@ double	cylinder_finder(t_shapes *shape, t_line *line)
 	shape->norm.dir.y *= 1;
 	shape->norm.dir.z *= 1;
 	norm_vector(&shape->norm.dir);
-	printf("x=%f y=%f z=%f\n", shape->norm.dir.x, shape->norm.dir.y, shape->norm.dir.z);
+	//printf("x=%f y=%f z=%f\n", shape->norm.dir.x, shape->norm.dir.y, shape->norm.dir.z);
 	coord_cpy(&sline.dir, &cylindre->dir);
 	tp = check_collision(cylindre, &sline, line, t);
 	if (tp < 0)

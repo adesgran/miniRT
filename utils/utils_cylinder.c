@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 14:04:18 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:16:31 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ double	get_t(t_shapes *shape, t_line *line)
 	r0a1.y = line->pos.y - ra1.y;
 	r0a1.z = line->pos.z - ra1.z;
 	ra0 = get_vector_perp(&s, &r0a1);
+	//norm_vector(ra0);
 	va = get_vector_perp(&s, &line->dir);
+	//norm_vector(va);
 	coord_cpy(&shape->norm.dir, va);
 	if (!ra0 || !va)
 		return (free(ra0), free(va), -1);
@@ -81,24 +83,24 @@ double	get_t(t_shapes *shape, t_line *line)
 
 int	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)
 {
-	t_line		raya1;
-	t_line		raya2;
+	t_coord	ra1;
+	t_coord	ra2;
 
-	raya1.dir.x = line->pos.x + t * line->dir.x;
-	raya1.dir.y = line->pos.y + t * line->dir.y;
-	raya1.dir.z = line->pos.z + t * line->dir.z;
-	raya2.dir.x = line->pos.x + t * line->dir.x;
-	raya2.dir.y = line->pos.y + t * line->dir.y;
-	raya2.dir.z = line->pos.z + t * line->dir.z;
-	raya1.dir.x -= cy->pos.x - (cy->h / 2) * cy->dir.x;
-	raya1.dir.y -= cy->pos.y - (cy->h / 2) * cy->dir.y;
-	raya1.dir.z -= cy->pos.z - (cy->h / 2) * cy->dir.z;
-	raya2.dir.x -= cy->pos.x + (cy->h / 2) * cy->dir.x;
-	raya2.dir.y -= cy->pos.y + (cy->h / 2) * cy->dir.y;
-	raya2.dir.z -= cy->pos.z + (cy->h / 2) * cy->dir.z;
-	norm_vector(&raya1.dir);
-	norm_vector(&raya2.dir);
-	if (cos(get_angle(&raya1, sline)) > 0 && cos(get_angle(&raya2, sline)) < 0)
+	ra1.x = line->pos.x + t * line->dir.x;
+	ra1.y = line->pos.y + t * line->dir.y;
+	ra1.z = line->pos.z + t * line->dir.z;
+	ra2.x = line->pos.x + t * line->dir.x;
+	ra2.y = line->pos.y + t * line->dir.y;
+	ra2.z = line->pos.z + t * line->dir.z;
+	ra1.x -= cy->pos.x - (cy->h / 2) * cy->dir.x;
+	ra1.y -= cy->pos.y - (cy->h / 2) * cy->dir.y;
+	ra1.z -= cy->pos.z - (cy->h / 2) * cy->dir.z;
+	ra2.x -= cy->pos.x + (cy->h / 2) * cy->dir.x;
+	ra2.y -= cy->pos.y + (cy->h / 2) * cy->dir.y;
+	ra2.z -= cy->pos.z + (cy->h / 2) * cy->dir.z;
+	norm_vector(&ra1);
+	norm_vector(&ra2);
+	if (cos(get_angle(&ra1, &sline->dir)) > 0 && cos(get_angle(&ra2, &sline->dir)) < 0)
 		return (t); //Read as a sphere
 	else
 		return (-1); //Read as a plan
