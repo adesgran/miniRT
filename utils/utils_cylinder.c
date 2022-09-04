@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/01 14:20:33 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:04:18 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ static double	t_calc(t_coord *va, t_coord *ra0, t_cylindre *cy)
 	return (t);
 }
 
-double	get_t(t_cylindre *cylindre, t_line *line)
+double	get_t(t_shapes *shape, t_line *line)
 {
 	t_coord		ra1;
 	t_coord		s;
 	t_coord		r0a1;
 	t_coord		*ra0;
 	t_coord		*va;
+	t_cylindre	*cylindre;
 
+	cylindre = (t_cylindre *)shape->content;
 	ra1.x = cylindre->pos.x - (cylindre->h / 2) * cylindre->dir.x;
 	ra1.y = cylindre->pos.y - (cylindre->h / 2) * cylindre->dir.y;
 	ra1.z = cylindre->pos.z - (cylindre->h / 2) * cylindre->dir.z;
@@ -71,6 +73,7 @@ double	get_t(t_cylindre *cylindre, t_line *line)
 	r0a1.z = line->pos.z - ra1.z;
 	ra0 = get_vector_perp(&s, &r0a1);
 	va = get_vector_perp(&s, &line->dir);
+	coord_cpy(&shape->norm.dir, va);
 	if (!ra0 || !va)
 		return (free(ra0), free(va), -1);
 	return (t_calc(va, ra0, cylindre));

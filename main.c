@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/01 14:32:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:28:32 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	minirt(t_env *env, unsigned int tab[W_HEIGHT][W_WIDTH])
 			color = shapes_finder(env, env->shapes, line);
 			tab[i][j] = color;
 			free(line);
+			//printf("\r%.2f%%", ((double)j * 100.0) / (double)W_HEIGHT);
 			i++;
-			printf("\r%.2f%%", ((double)j * 100.0) / (double)W_HEIGHT);
 		}
 		j++;
 	}

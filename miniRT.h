@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 12:23:57 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:14:52 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void			put_pixel(t_data *img, int x, int y, ...);
 t_vars			*init_vars(void);
 
 //Cylinder Utils
-double			get_t(t_cylindre *cylindre, t_line *line);
+double			get_t(t_shapes *shape, t_line *line);
 int				check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t);
 
 //Shapes Finder
