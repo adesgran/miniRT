@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 13:28:32 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:35:43 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	show_all(t_vars *vars, unsigned int tab[W_HEIGHT][W_WIDTH])
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 }
+
 int	main(int ac, char **av)
 {
 	t_vars	*vars;
@@ -103,6 +104,7 @@ int	main(int ac, char **av)
 		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
 	norm_vector(&env->camera->dir);
+	print_lst(env->shapes);
 	printf("ENV DONE\n");
 	minirt(env, tab);
 	vars = init_vars();

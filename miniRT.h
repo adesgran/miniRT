@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 13:14:52 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:36:01 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,21 +131,22 @@ int				check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t);
 //Shapes Finder
 double			sphere_finder(t_shapes *shape, t_line *line);
 double			cylinder_finder(t_shapes *shape, t_line *line);
+double			plan_finder(t_shapes *shape, t_line *line);
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
 
 //Colors
 unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape);
 
 //t_shapes Utils
-t_shapes		*shapes_init(void *content, int type, double (*ft)(t_shapes *, t_line *));
+t_shapes		*shapes_new(void *content, t_color *color, double (*ft_finder)(t_shapes *, t_line *));
+void			shapes_add(t_env *env, t_shapes *new);
 void			shapes_free(t_shapes *shapes);
-void			shapes_add(t_shapes *shapes, void *content, int type, double (*ft)(t_shapes *, t_line *));
 
 //t_light Utils
 void			light_free(t_light *light);
 
 //Geometry Utils
-double			get_angle(t_line *v1, t_line *v2);
+double	get_angle(t_coord *v1, t_coord *v2);
 double 			get_dist(t_coord a, t_coord b);
 double			max(double a, double b);
 void			norm_vector(t_coord *v);
