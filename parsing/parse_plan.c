@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:08:30 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/26 15:14:13 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:07:37 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	parse_plan(t_env *env, char **tab)
 	read_coord(tab[2], &(pl->dir), &err);
 	if (err)
 		return (ft_free_tabstr(tab), 1);
-	pl->color = read_color(tab[3], &err);
+	read_color(tab[3], &err, &pl->color);
 	if (err || check_value(pl))
 		return (ft_free_tabstr(tab), 1);
 	return (ft_free_tabstr(tab), 0);

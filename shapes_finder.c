@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/08/30 13:28:09 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:23:38 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ double	sphere_finder(t_shapes *shape, t_line *line)
 	t_sphere	*sphere;
 
 	sphere = (t_sphere *)shape->content;
+	color_cpy(&sphere->color, &shape->color);
 	a = pow(line->dir.x, 2) + pow(line->dir.y, 2) + pow(line->dir.z, 2);
 	b = 2 * (line->dir.x * (line->pos.x - sphere->pos.x) + line->dir.y
-			* (line->pos.y - sphere->pos.y) + line->dir.z
-			* (line->pos.z - sphere->pos.z));
+		* (line->pos.y - sphere->pos.y) + line->dir.z
+		* (line->pos.z - sphere->pos.z));
 	c = pow(sphere->pos.x, 2) + pow(sphere->pos.y, 2) + pow(sphere->pos.z, 2)
 		+ pow(line->pos.x, 2) + pow(line->pos.y, 2) + pow(line->pos.z, 2) - 2.0
 		* (sphere->pos.x * line->pos.x + sphere->pos.y * line->pos.y
-			+ sphere->pos.z * line->pos.z) - sphere->r * sphere->r;
+		+ sphere->pos.z * line->pos.z) - sphere->r * sphere->r;
 	res = b * b - 4 * a * c;
 	if (res < 0) // no intersection
 		u = -1;
@@ -41,6 +42,13 @@ double	sphere_finder(t_shapes *shape, t_line *line)
 		if (u < 0)
 			u = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
 	}
+	color_cpy(&sphere->color, &shape->color);
+	shape->norm.pos.x = line->pos.x + u * line->dir.x;
+	shape->norm.pos.y = line->pos.y + u * line->dir.y;
+	shape->norm.pos.z = line->pos.z + u * line->dir.z;
+	shape->norm.dir.x = shape->norm.pos.x - sphere->pos.x;
+	shape->norm.dir.y = shape->norm.pos.y - sphere->pos.y;
+	shape->norm.dir.z = shape->norm.pos.z - sphere->pos.z;
 	return (u);
 }
 
@@ -49,24 +57,23 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	double			u;
 	double			min;
 	unsigned int	color;
-	t_sphere		*tmp;
+	t_shapes		*tmp;
 
 	min = -1;
-	color = env->ambiant_light;
+	color = 0x050515;
 	while (shapes)
 	{
 		u = shapes->ft_finder(shapes, line);
 		if (u >= 0 && (min < 0 || u < min))
 		{
 			min = u;
-			tmp = (t_sphere *)shapes->content;
+			tmp = shapes;
 		}
 		shapes = shapes->next;
 	}
 	if (min >= 0)
 	{
-		//color = 0xff0000;
-		color = get_sp_color(env, tmp, line, min);
+		color = get_shape_color(env, line, tmp);
 	}
 	(void)tmp;
 	return (color);

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:56:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/03 18:29:40 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:19:30 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,41 @@ static void	set_err(int *err)
 	*err = 1;
 }
 
-unsigned int	read_color(char *str, int *err)
+static void	fill_color(t_color *color, unsigned int res)
 {
-	unsigned int	res;
+	static int	state;
+
+	if (!state)
+		state = 0;
+	if (state == 0)
+		color->r = res;
+	else if (state == 1)
+		color->g = res;
+	else if (state == 2)
+		color->b = res;
+	state++;
+	if (state > 2)
+		state = 0;
+}
+
+void	read_color(char *str, int *err, t_color *color)
+{
 	unsigned int	tmp;
 	unsigned int	i;
 
-	res = 0;
 	i = 0;
 	if (check_form(str))
-		return (set_err(err), 0);
+		return (set_err(err));
 	while (i < 3)
 	{
 		tmp = ft_atoi(str);
 		if (tmp > 255)
-			return (set_err(err), 0);
-		res *= 256;
-		res += tmp;
+			return (set_err(err));
+		fill_color(color, tmp);
 		while (ft_isdigit(*str))
 			str++;
 		if (*str == ',')
 			str++;
 		i++;
 	}
-	return (res);
 }
