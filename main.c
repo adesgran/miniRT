@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:00:25 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:06:39 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,16 @@ int	minirt(t_vars *vars, t_env *env)
 	return (0); //free + mlx_loop_end
 }
 
+void	print_lst(t_shapes *shape)
+{
+	while (shape)
+	{
+		printf("type = %d\n", shape->type);
+		printf("ft_finder = %p\n", shape->ft_finder);
+		shape = shape->next;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_vars	*vars;
@@ -95,6 +105,7 @@ int	main(int ac, char **av)
 		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
 	norm_vector(&env->camera->dir);
+	print_lst(env->shapes);
 	printf("ENV DONE\n");
 	vars = init_vars();
 	if (!vars)
