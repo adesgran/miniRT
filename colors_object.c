@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/02 15:26:04 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:16:03 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 	double	ls;
 	double	la;
 	t_color	color;
+	t_color	tmp;
+	t_color	tmp_w;
+	t_color	white;
 	
+	white.r = 255;
+	white.g = 255;
+	white.b = 255;
 	la = KA * env->ambiant_light.i;
 	init_ray(env, &shape->norm, &ray);
 	bisector.pos.x = ray.pos.x;
@@ -74,7 +80,8 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 		ld = get_difuse_light(env, &ray, &shape->norm);
 		ls = get_specular_light(env, &ray, &shape->norm, &bisector);
 	}
-	color_ratio(&shape->color, ld + la, &color);
-	(void)ls;
+	color_ratio(&shape->color, ld + la, &tmp);
+	color_ratio(&white, ls, &tmp_w);
+	color_addition(&tmp, &tmp_w, &color);
 	return (color_to_ui(color));
 }

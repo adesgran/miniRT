@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/09/02 15:27:05 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:11:50 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	t_shapes		*tmp;
 
 	min = -1;
-	color = color_to_ui(env->ambiant_light);
+	color = 0x050515;
 	while (shapes)
 	{
 		u = shapes->ft_finder(shapes, line);

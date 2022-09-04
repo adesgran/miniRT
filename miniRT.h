@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/02 15:22:10 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:18:49 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define PLAN 103
 # define KD 100
 # define KS 100
-# define KA 100
+# define KA 1
 
 typedef struct s_color {
 	unsigned int	r;

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:56:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/02 15:34:33 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:19:30 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	fill_color(t_color *color, unsigned int res)
 
 	if (!state)
 		state = 0;
-	printf("State = %u\n", state);
 	if (state == 0)
 		color->r = res;
 	else if (state == 1)
