@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/09/04 12:11:50 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:32:21 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ double	sphere_finder(t_shapes *shape, t_line *line)
 	t_sphere	*sphere;
 
 	sphere = (t_sphere *)shape->content;
-	color_cpy(&sphere->color, &shape->color);
 	a = pow(line->dir.x, 2) + pow(line->dir.y, 2) + pow(line->dir.z, 2);
 	b = 2 * (line->dir.x * (line->pos.x - sphere->pos.x) + line->dir.y
 		* (line->pos.y - sphere->pos.y) + line->dir.z
@@ -42,13 +41,35 @@ double	sphere_finder(t_shapes *shape, t_line *line)
 		if (u < 0)
 			u = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
 	}
-	color_cpy(&sphere->color, &shape->color);
 	shape->norm.pos.x = line->pos.x + u * line->dir.x;
 	shape->norm.pos.y = line->pos.y + u * line->dir.y;
 	shape->norm.pos.z = line->pos.z + u * line->dir.z;
 	shape->norm.dir.x = shape->norm.pos.x - sphere->pos.x;
 	shape->norm.dir.y = shape->norm.pos.y - sphere->pos.y;
 	shape->norm.dir.z = shape->norm.pos.z - sphere->pos.z;
+	return (u);
+}
+
+double	plan_finder(t_shapes *shape, t_line *line)
+{
+	t_plan	*plan;
+	double	u;
+	double	d;
+	
+	plan = (t_plan *)shape->content;
+	if (get_angle(&line->dir, &plan->dir) - M_PI / 2 < 0.01)
+		return (-1);
+	d = - (plan->dir.x * plan->pos.x + plan->dir.y * plan->pos.y + plan->dir.z * plan->pos.z);
+	u = - (line->pos.x * plan->dir.x + line->pos.y * plan->dir.y + line->pos.z * plan->dir.z + d);
+	u /= plan->dir.x * line->dir.x + plan->dir.y * line->dir.y + plan->dir.z * line->dir.z;
+	if (u < 0)
+		return (-1);
+	shape->norm.pos.x = line->pos.x + u * line->dir.x;
+	shape->norm.pos.y = line->pos.y + u * line->dir.y;
+	shape->norm.pos.z = line->pos.z + u * line->dir.z;
+	shape->norm.dir.x = plan->dir.x;
+	shape->norm.dir.y = plan->dir.y;
+	shape->norm.dir.z = plan->dir.z;
 	return (u);
 }
 

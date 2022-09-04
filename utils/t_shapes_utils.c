@@ -6,13 +6,13 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:34:02 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:22:43 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:18:49 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-t_shapes	*shapes_init(void *content, int type, double (*ft_finder)(t_shapes *, t_line *))
+t_shapes	*shapes_new(void *content, t_color *color, double (*ft_finder)(t_shapes *, t_line *))
 {
 	t_shapes	*res;
 
@@ -20,24 +20,25 @@ t_shapes	*shapes_init(void *content, int type, double (*ft_finder)(t_shapes *, t
 	if (!res)
 		return (NULL);
 	res->content = content;
-	res->type = type;
 	res->ft_finder = ft_finder;
+	color_cpy(color, &res->color);
 	res->next = NULL;
 	return (res);
 }
 
-void	shapes_add(t_shapes *shapes, void *content, int type, double (*ft_finder)(t_shapes *, t_line *))
+void	shapes_add(t_env *env, t_shapes *new)
 {
-	while (shapes->next)
-		shapes = shapes->next;
-	shapes->next = malloc(sizeof(t_shapes));
-	if (!shapes->next)
+	t_shapes	*tmp;
+	
+	if (!env->shapes)
+	{
+		env->shapes = new;
 		return ;
-	shapes = shapes->next;
-	shapes->content = content;
-	shapes->type = type;
-	shapes->ft_finder = ft_finder;
-	shapes->next = NULL;
+	}
+	tmp = env->shapes;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 }
 
 void	shapes_free(t_shapes *shapes)

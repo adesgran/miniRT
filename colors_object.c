@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 12:16:03 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:58:51 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ static int	check_shadow(t_env *env, t_line *ray)
 
 static double	get_difuse_light(t_env *env, t_line *ray, t_line *normale)
 {
-	return (KD * (env->light->color.i/pow(get_dist(ray->pos, env->light->pos), 2)) * max(0, cos(get_angle(normale, ray))));
+	return (KD * (env->light->color.i/pow(get_dist(ray->pos, env->light->pos), 2))
+		* max(0, cos(get_angle(&normale->dir, &ray->dir))));
 }
 
 static double	get_specular_light(t_env *env, t_line *ray, t_line *normale, t_line *bisector)
 {
-	return (KS * (env->light->color.i/pow(get_dist(ray->pos, env->light->pos), 2)) * pow(max(0, cos(get_angle(normale, bisector))), 100));
+	return (KS * (env->light->color.i/pow(get_dist(ray->pos, env->light->pos), 2))
+		* pow(max(0, cos(get_angle(&normale->dir, &bisector->dir))), 100));
 }
 
 static void	init_ray(t_env *env, t_line *norm, t_line *ray)

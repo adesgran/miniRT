@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:08:30 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/02 14:07:37 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:17:09 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,15 @@ static int	check_value(t_plan *pl)
 
 int	parse_plan(t_env *env, char **tab)
 {
-	int		err;
-	t_plan	*pl;
-
+	int			err;
+	t_plan		*pl;
+	t_shapes	*new_shape;
+	
 	if (ft_tablen((void **)tab) != 4)
 		return (ft_free_tabstr(tab), 1);
 	pl = malloc(sizeof(t_plan));
 	if (!pl)
 		return (ft_free_tabstr(tab), 1);
-	if (env->shapes)
-		shapes_add(env->shapes, pl, PLAN, NULL);
-	else
-		env->shapes = shapes_init(pl, PLAN, NULL);
 	err = 0;
 	read_coord(tab[1], &(pl->pos), &err);
 	if (err)
@@ -47,5 +44,9 @@ int	parse_plan(t_env *env, char **tab)
 	read_color(tab[3], &err, &pl->color);
 	if (err || check_value(pl))
 		return (ft_free_tabstr(tab), 1);
+	new_shape = shapes_new(pl, &pl->color, plan_finder);
+	if (!new_shape)
+		return (ft_free_tabstr(tab), 1);
+	shapes_add(env, new_shape);
 	return (ft_free_tabstr(tab), 0);
 }
