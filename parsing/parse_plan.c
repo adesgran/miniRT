@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:08:30 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:17:09 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:54:36 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	check_value(t_plan *pl)
 {
-	if (pl->dir.x > 1 || pl->dir.x < 0)
+	if (pl->dir.x > 1 || pl->dir.x < -1)
 		return (1);
-	if (pl->dir.y > 1 || pl->dir.y < 0)
+	if (pl->dir.y > 1 || pl->dir.y < -1)
 		return (1);
-	if (pl->dir.z > 1 || pl->dir.z < 0)
+	if (pl->dir.z > 1 || pl->dir.z < -1)
 		return (1);
 	return (0);
 }

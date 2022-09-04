@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
-/*   Updated: 2022/09/04 15:32:21 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:57:56 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ double	plan_finder(t_shapes *shape, t_line *line)
 	double	u;
 	double	d;
 	
+	norm_vector(&line->dir);
 	plan = (t_plan *)shape->content;
-	if (get_angle(&line->dir, &plan->dir) - M_PI / 2 < 0.01)
+	if ((get_angle(&line->dir, &plan->dir) - M_PI / 2) < 0.001)
 		return (-1);
 	d = - (plan->dir.x * plan->pos.x + plan->dir.y * plan->pos.y + plan->dir.z * plan->pos.z);
 	u = - (line->pos.x * plan->dir.x + line->pos.y * plan->dir.y + line->pos.z * plan->dir.z + d);
