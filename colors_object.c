@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 13:58:51 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:24:24 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 	white.r = 255;
 	white.g = 255;
 	white.b = 255;
-	la = KA * env->ambiant_light.i;
+	la = KA * env->ambiant_light->i;
 	init_ray(env, &shape->norm, &ray);
 	bisector.pos.x = ray.pos.x;
 	bisector.pos.y = ray.pos.y;

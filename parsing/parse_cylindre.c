@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:09:07 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 17:11:27 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:29:05 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,18 @@ static int	read_args(t_cylindre *cy, char **tab)
 	int			err;
 
 	err = 0;
-	read_coord(tab[1], &(cy->pos), &err);
-	if (err)
-		return (ft_free_tabstr(tab), 1);
-	read_coord(tab[2], &(cy->dir), &err);
-	if (err)
-		return (ft_free_tabstr(tab), 1);
+	if (read_coord(tab[1], &(cy->pos)))
+		return (parsing_error("Cylinder: invalid position coordinates"), 1);
+	if (read_coord(tab[2], &(cy->dir)))
+		return (parsing_error("Cylinder: invalid orientation coordinates"), 1);
 	cy->r = atod(tab[3], &err) / 2;
 	if (err)
-		return (ft_free_tabstr(tab), 1);
+		return (parsing_error("Cylinder: invalid diameter"), 1);
 	cy->h = atod(tab[4], &err);
 	if (err)
-		return (ft_free_tabstr(tab), 1);
-	read_color(tab[5], &err, &cy->color);
-	if (err || check_value(cy))
-		return (ft_free_tabstr(tab), 1);
+		return (parsing_error("Cylinder: invalid height"), 1);
+	if (read_color(tab[5], &cy->color) || check_value(cy))
+		return (parsing_error("Cylinder: invalid color value"), 1);
 	norm_vector(&cy->dir);
 	return (0);
 }
@@ -55,17 +52,17 @@ int	parse_cylindre(t_env *env, char **tab)
 {
 	t_cylindre	*cy;
 	t_shapes	*new_shape;
-	
+
 	if (ft_tablen((void **)tab) != 6)
-		return (ft_free_tabstr(tab), 1);
+		return (parsing_error("Cylinder: wrong number of arguments"), 1);
 	cy = malloc(sizeof(t_cylindre));
 	if (!cy)
-		return (ft_free_tabstr(tab), 1);
-	if (read_args(cy, tab))
 		return (1);
+	if (read_args(cy, tab))
+		return (free(cy), 1);
 	new_shape = shapes_new(cy, &cy->color, cylinder_finder);
 	if (!new_shape)
-		return (ft_free_tabstr(tab), 1);
+		return (free(cy), 1);
 	shapes_add(env, new_shape);
-	return (ft_free_tabstr(tab), 0);
+	return (0);
 }

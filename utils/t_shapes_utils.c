@@ -6,13 +6,14 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:34:02 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:18:49 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:32:19 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-t_shapes	*shapes_new(void *content, t_color *color, double (*ft_finder)(t_shapes *, t_line *))
+t_shapes	*shapes_new(void *content, t_color *color,
+	double (*ft_finder)(t_shapes *, t_line *))
 {
 	t_shapes	*res;
 
@@ -29,7 +30,7 @@ t_shapes	*shapes_new(void *content, t_color *color, double (*ft_finder)(t_shapes
 void	shapes_add(t_env *env, t_shapes *new)
 {
 	t_shapes	*tmp;
-	
+
 	if (!env->shapes)
 	{
 		env->shapes = new;

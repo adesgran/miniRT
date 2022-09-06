@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_color.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:56:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 12:19:30 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:33:07 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ static int	check_form(char *str)
 	return (0);
 }
 
-static void	set_err(int *err)
-{
-	*err = 1;
-}
-
 static void	fill_color(t_color *color, unsigned int res)
 {
 	static int	state;
@@ -63,19 +58,19 @@ static void	fill_color(t_color *color, unsigned int res)
 		state = 0;
 }
 
-void	read_color(char *str, int *err, t_color *color)
+int	read_color(char *str, t_color *color)
 {
 	unsigned int	tmp;
 	unsigned int	i;
 
 	i = 0;
 	if (check_form(str))
-		return (set_err(err));
+		return (1);
 	while (i < 3)
 	{
 		tmp = ft_atoi(str);
 		if (tmp > 255)
-			return (set_err(err));
+			return (1);
 		fill_color(color, tmp);
 		while (ft_isdigit(*str))
 			str++;
@@ -83,4 +78,5 @@ void	read_color(char *str, int *err, t_color *color)
 			str++;
 		i++;
 	}
+	return (0);
 }
