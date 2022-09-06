@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 15:13:18 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/28 17:15:04 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:12:35 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,30 @@
 
 double	cylinder_finder(t_shapes *shape, t_line *line)
 {
-	double		a;
-	double		b;
-	double		c;
-	double		delta;
-	double		t1;
-	double		t2;
-	double		t;
-	double		r;
-	t_line		ra0;
-	t_line		ra1;
-	t_line		ra2;
-	t_coord		s;
+	t_line		sline;
 	t_cylindre	*cylindre;
+	double		t;
+	double		tp;
 
 	cylindre = (t_cylindre *)shape->content;
-
-	norm_vector(&cylindre->dir);
-
-	ra1.pos.x = line->pos.x;
-	ra1.pos.y = line->pos.y;
-	ra1.pos.z = line->pos.z;
-	ra1.dir.x = cylindre->pos.x + (cylindre->h / 2) * cylindre->dir.x - ra1.pos.x;
-	ra1.dir.y = cylindre->pos.y + (cylindre->h / 2) * cylindre->dir.y - ra1.pos.y;
-	ra1.dir.z = cylindre->pos.z + (cylindre->h / 2) * cylindre->dir.z - ra1.pos.z;
-
-	ra2.pos.x = line->pos.x;
-	ra2.pos.y = line->pos.y;
-	ra2.pos.z = line->pos.z;
-	ra2.dir.x = cylindre->pos.x - (cylindre->h / 2) * cylindre->dir.x - ra1.pos.x;
-	ra2.dir.y = cylindre->pos.y - (cylindre->h / 2) * cylindre->dir.y - ra1.pos.y;
-	ra2.dir.z = cylindre->pos.z - (cylindre->h / 2) * cylindre->dir.z - ra1.pos.z;
-
-	(void)s;
-	(void)ra2;
-	(void)ra0;
-
-	a = pow(line->dir.x, 2) + pow(line->dir.y, 2) + pow(line->dir.z, 2);
-	b = 2 * (line->dir.x * (line->pos.x - cylindre->pos.x) + (line->dir.y * (line->pos.y - cylindre->pos.y)) + (line->dir.z * (line->pos.z - cylindre->pos.z)));
-	c = pow(line->pos.x - cylindre->pos.x, 2) + pow(line->pos.y - cylindre->pos.y, 2) +  pow(line->pos.z - cylindre->pos.z, 2) - pow(cylindre->r, 2);
-	delta = pow(b, 2) - 4 * a * c;
-	if (delta < 0)
-		return (delta);
-	if (delta == 0)
-		return (-b);
-	t1 = (-b - sqrt(delta)) / (2 * a);
-	t2 = (-b + sqrt(delta)) / (2 * a);
-	if (t1 > t2)
-		t = t2;
+	color_cpy(&cylindre->color, &shape->color);
+	t = get_t(shape, line);
+	if (t < 0)
+		return (-1);
+	shape->norm.dir.x *= 1;
+	shape->norm.dir.y *= 1;
+	shape->norm.dir.z *= 1;
+	norm_vector(&shape->norm.dir);
+	//printf("x=%f y=%f z=%f\n", shape->norm.dir.x, shape->norm.dir.y, shape->norm.dir.z);
+	coord_cpy(&sline.dir, &cylindre->dir);
+	tp = check_collision(cylindre, &sline, line, t);
+	if (tp < 0)
+		return (tp); //show a plan
 	else
-		t = t1;
-	r = line->pos.y + t * line->dir.y;
-	if ((r >= cylindre->pos.y) && r <= cylindre->pos.y + cylindre->h)
-		return (t);
-	return (-1);
+	{
+		shape->norm.pos.x = line->pos.x + line->dir.x * tp;
+		shape->norm.pos.y = line->pos.y + line->dir.y * tp;
+		shape->norm.pos.z = line->pos.z + line->dir.z * tp;
+		return (tp); //show a sphere
+	}
 }

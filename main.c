@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 14:06:39 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:41:16 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_line	*linecpy(t_camera *camera, double ax, double ay)
 }
 
 //Fonction Principale
-int	minirt(t_vars *vars, t_env *env)
+int	minirt(t_env *env, unsigned int tab[W_HEIGHT][W_WIDTH])
 {
 	int				i;
 	int				j;
@@ -50,9 +50,9 @@ int	minirt(t_vars *vars, t_env *env)
 	double			ay;
 	t_line			*line;
 	unsigned int	color;
-	unsigned int	tab[W_HEIGHT][W_WIDTH];
 	
 	j = 0;
+	printf("\n");
 	while (j < W_HEIGHT)
 	{
 		ax = env->camera->fov / W_WIDTH * (W_HEIGHT / 2.0 - (double)j) * M_PI / 180.0;
@@ -66,11 +66,20 @@ int	minirt(t_vars *vars, t_env *env)
 			color = shapes_finder(env, env->shapes, line);
 			tab[i][j] = color;
 			free(line);
+			//printf("\r%.2f%%", ((double)j * 100.0) / (double)W_HEIGHT);
 			i++;
 		}
 		j++;
 	}
-	printf("calcul end\n");
+	printf("\r100%%\ncalcul end\n");
+	return (0); //free + mlx_loop_end
+}
+
+void	show_all(t_vars *vars, unsigned int tab[W_HEIGHT][W_WIDTH])
+{
+	int	i;
+	int	j;
+
 	j = 0;
 	while (j < W_HEIGHT)
 	{
@@ -83,34 +92,24 @@ int	minirt(t_vars *vars, t_env *env)
 		j++;
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
-	return (0); //free + mlx_loop_end
-}
-
-void	print_lst(t_shapes *shape)
-{
-	while (shape)
-	{
-		printf("type = %d\n", shape->type);
-		printf("ft_finder = %p\n", shape->ft_finder);
-		shape = shape->next;
-	}
 }
 
 int	main(int ac, char **av)
 {
 	t_vars	*vars;
 	t_env	*env;
+	unsigned int	tab[W_HEIGHT][W_WIDTH];
 
 	if (ac != 2)
 		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
 	norm_vector(&env->camera->dir);
-	print_lst(env->shapes);
 	printf("ENV DONE\n");
+	minirt(env, tab);
 	vars = init_vars();
 	if (!vars)
 		return (ft_putstr_fd("\033[0;31mError while generating vars\033[0m\n", 2), 1);
-	minirt(vars, env);
+	show_all(vars, tab);
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
 	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
 	mlx_loop(vars->mlx);

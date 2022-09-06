@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:09:07 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:18:30 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:11:27 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	check_value(t_cylindre *cy)
 	if (cy->dir.y > 1 || cy->dir.y < 0)
 		return (1);
 	if (cy->dir.z > 1 || cy->dir.z < 0)
+		return (1);
+	if (cy->dir.x == 0 && cy->dir.y == 0 && cy->dir.z == 0)
 		return (1);
 	return (0);
 }
@@ -45,6 +47,7 @@ static int	read_args(t_cylindre *cy, char **tab)
 	read_color(tab[5], &err, &cy->color);
 	if (err || check_value(cy))
 		return (ft_free_tabstr(tab), 1);
+	norm_vector(&cy->dir);
 	return (0);
 }
 
