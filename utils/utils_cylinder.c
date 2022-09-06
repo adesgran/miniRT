@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 17:16:31 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:35:15 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static double	t_calc(t_coord *va, t_coord *ra0, t_cylindre *cy)
 	b = 2 * (ra0->x * va->x + ra0->y * va->y + ra0->z * va->z);
 	c = pow(ra0->x, 2) + pow(ra0->y, 2) +  pow(ra0->z, 2) - pow(cy->r, 2);
 	delta = pow(b, 2) - 4 * a * c;
-	if (delta < 0.0001)
+	if (delta < 0.000001)
 		return (-1);
 	t1 = (-b - sqrt(delta)) / (2 * a);
 	t2 = (-b + sqrt(delta)) / (2 * a);
-	if (t1 > t2 && t2 > 0.0001)
+	if (t1 > t2 && t2 > 0.000001)
 		t = t2;
 	else
 		t = t1;
@@ -61,6 +61,7 @@ double	get_t(t_shapes *shape, t_line *line)
 	t_coord		*ra0;
 	t_coord		*va;
 	t_cylindre	*cylindre;
+	double		t;
 
 	cylindre = (t_cylindre *)shape->content;
 	ra1.x = cylindre->pos.x - (cylindre->h / 2) * cylindre->dir.x;
@@ -75,10 +76,20 @@ double	get_t(t_shapes *shape, t_line *line)
 	//norm_vector(ra0);
 	va = get_vector_perp(&s, &line->dir);
 	//norm_vector(va);
+	//coord_cpy(&shape->norm.dir, ra0);
 	coord_cpy(&shape->norm.dir, va);
+	//printf("%f\n", get_angle(&cylindre->dir, va));
 	if (!ra0 || !va)
 		return (free(ra0), free(va), -1);
-	return (t_calc(va, ra0, cylindre));
+	t = t_calc(va, ra0, cylindre);
+	shape->norm.dir.x *= t;
+	shape->norm.dir.y *= t;
+	shape->norm.dir.z *= t;
+	shape->norm.dir.x += ra0->x;
+	shape->norm.dir.y += ra0->y;
+	shape->norm.dir.z += ra0->z;
+	norm_vector(&shape->norm.dir);
+	return (t);
 }
 
 int	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 15:13:18 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 17:12:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:47:02 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ double	cylinder_finder(t_shapes *shape, t_line *line)
 		return (tp); //show a plan
 	else
 	{
-		shape->norm.pos.x = line->pos.x + line->dir.x * tp;
-		shape->norm.pos.y = line->pos.y + line->dir.y * tp;
-		shape->norm.pos.z = line->pos.z + line->dir.z * tp;
+		shape->norm.pos.x = cylindre->pos.x - cylindre->h * cylindre->dir.x / 2 + t * cylindre->dir.x - shape->norm.dir.x * cylindre->r;
+		shape->norm.pos.y = cylindre->pos.y - cylindre->h * cylindre->dir.y / 2 + t * cylindre->dir.y - shape->norm.dir.y * cylindre->r;
+		shape->norm.pos.z = cylindre->pos.z - cylindre->h * cylindre->dir.z / 2 + t * cylindre->dir.z - shape->norm.dir.z * cylindre->r;
 		return (tp); //show a sphere
 	}
 }
