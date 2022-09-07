@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:49:12 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 12:02:44 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:10:16 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ int	parse_light(t_env *env, char **tab)
 	int				err;
 	t_light			*light;
 
+	if (env->light)
+		return (parsing_error("Light: multiple definitions"), 1);
 	if (ft_tablen((void **)tab) != 4)
-		return (ft_free_tabstr(tab), 1);
+		return (parsing_error("Light: wrong number of arguments"), 1);
 	light = malloc(sizeof(t_light));
 	if (!light)
-		return (ft_free_tabstr(tab), 1);
+		return (1);
+	if (read_coord(tab[1], &(light->pos)))
+		return (parsing_error("Light: invalid position coordinates"), 1);
+	if (read_color(tab[3], &light->color))
+		return (parsing_error("Light: invalid color value"), 1);
 	err = 0;
-	read_coord(tab[1], &(light->pos), &err);
-	if (err)
-		return (free(light), ft_free_tabstr(tab), 1);
-	read_color(tab[3], &err, &light->color);
-	if (err)
-		return (free(light), ft_free_tabstr(tab), 1);
 	light->color.i = atod(tab[2], &err);
 	if (err || light->color.i > 1.0 || light->color.i < 0.0)
-		return (free(light), ft_free_tabstr(tab), 1);
+		return (parsing_error("Light: invalid ratio in range"), 1);
 	push_light(env, light);
-	return (ft_free_tabstr(tab), 0);
+	return (0);
 }

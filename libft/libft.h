@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <adesgran@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:58:21 by adesgran          #+#    #+#             */
-/*   Updated: 2022/06/06 11:41:37 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:23:41 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,6 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_ischarset(char c, char *charset);
 char	**ft_split_first(char *str, char c);
 size_t	ft_tablen(void **tab);
+int		ft_strrncmp(const char *s1, const char *s2, size_t n);
+
 #endif

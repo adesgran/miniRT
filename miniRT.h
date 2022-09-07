@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:36:01 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:04:49 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_env {
 	t_camera		*camera;
 	t_light			*light;
 	t_shapes		*shapes;
-	t_color			ambiant_light;
+	t_color			*ambiant_light;
 }	t_env;
 
 void			put_pixel(t_data *img, int x, int y, ...);
@@ -146,7 +146,7 @@ void			shapes_free(t_shapes *shapes);
 void			light_free(t_light *light);
 
 //Geometry Utils
-double	get_angle(t_coord *v1, t_coord *v2);
+double			get_angle(t_coord *v1, t_coord *v2);
 double 			get_dist(t_coord a, t_coord b);
 double			max(double a, double b);
 void			norm_vector(t_coord *v);
@@ -172,15 +172,21 @@ t_env			*get_env(void);
 //Parsing
 char			**split_spaces(char *str);
 double			atod(char *str, int *error);
-void			read_color(char *str, int *err, t_color *color);
 t_env			*parser(char *filename);
 void			parsing_error(char *msg);
+
 int				parse_ambiantlight(t_env *env, char **tab);
 int 			parse_light(t_env *env, char **tab);
 int 			parse_camera(t_env *env, char **tab);
 int				parse_sphere(t_env *env, char **tab);
 int				parse_cylindre(t_env *env, char **tab);
 int				parse_plan(t_env *env, char **tab);
-void			read_coord(char *str, t_coord *coord, int *err);
+
+// Read Color
+int				read_color(char *str, t_color *color);
+
+// Read Coord
+int				check_dir(t_coord *dir);
+int				read_coord(char *str, t_coord *coord);
 
 #endif

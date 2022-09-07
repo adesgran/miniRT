@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_cylinder.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 17:16:31 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:34:33 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static t_coord	*get_vector_perp(t_coord *a, t_coord *b)
 	res = malloc(sizeof(t_coord));
 	if (!res)
 		return (NULL);
-
 	vector_product(a, b, &tmp);
 	vector_product(&tmp, a, res);
 	return (res);
@@ -105,4 +104,3 @@ int	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)
 	else
 		return (-1); //Read as a plan
 }
-

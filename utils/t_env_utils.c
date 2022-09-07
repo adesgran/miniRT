@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_env_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:27:11 by adesgran          #+#    #+#             */
-/*   Updated: 2022/08/21 13:48:19 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:15:19 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	env_free(t_env *env)
 	free(env->camera);
 	light_free(env->light);
 	shapes_free(env->shapes);
+	free(env->ambiant_light);
 	free(env);
 }
