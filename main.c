@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:41:16 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:36:28 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	minirt(t_env *env, unsigned int tab[W_HEIGHT][W_WIDTH])
 			ay = env->camera->fov * ((double)i / W_WIDTH - 1.0 / 2.0) * M_PI / 180.0;
 			line = linecpy(env->camera, -ax, ay);
 			if (!line)
-				return (1); //free + mlx_loop_end
+				return (1);
 			color = shapes_finder(env, env->shapes, line);
 			tab[i][j] = color;
 			free(line);
@@ -72,7 +72,7 @@ int	minirt(t_env *env, unsigned int tab[W_HEIGHT][W_WIDTH])
 		j++;
 	}
 	printf("\r100%%\ncalcul end\n");
-	return (0); //free + mlx_loop_end
+	return (0);
 }
 
 void	show_all(t_vars *vars, unsigned int tab[W_HEIGHT][W_WIDTH])
@@ -96,19 +96,20 @@ void	show_all(t_vars *vars, unsigned int tab[W_HEIGHT][W_WIDTH])
 
 int	main(int ac, char **av)
 {
-	t_vars	*vars;
-	t_env	*env;
+	t_vars			*vars;
+	t_env			*env;
 	unsigned int	tab[W_HEIGHT][W_WIDTH];
 
 	if (ac != 2)
-		return (ft_putstr_fd("\033[0;31mBad number of arguments\033[0m\n", 2), 2);
+		return (ft_putstr_fd("\033[0;31mWrong number of arguments\033[0m\n", 2), 2);
 	env = parser(av[1]);
-	norm_vector(&env->camera->dir);
+	if (!env)
+		return (1);
 	printf("ENV DONE\n");
 	minirt(env, tab);
 	vars = init_vars();
 	if (!vars)
-		return (ft_putstr_fd("\033[0;31mError while generating vars\033[0m\n", 2), 1);
+		return (ft_putstr_fd("\033[0;31mUnable to generate mlx vars\033[0m\n", 2), 1);
 	show_all(vars, tab);
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
 	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
