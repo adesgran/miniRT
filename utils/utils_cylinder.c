@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 17:17:11 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:24:36 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ double	get_t(t_shapes *shape, t_line *line)
 	//va->x *= sqrt(cylindre->r);
 	//va->y *= sqrt(cylindre->r);
 	//va->z *= sqrt(cylindre->r);
-	if (get_angle(ra0, va) < M_PI / 2)
-		return (-1);
-	printf("D = %f\n", sqrt(va->x * va->x + va->y * va->y + va->z * va->z));
 	//printf("%f\n", get_angle(&cylindre->dir, ra0));
 	if (!ra0 || !va)
 		return (free(ra0), free(va), -1);
