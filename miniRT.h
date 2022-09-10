@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 17:17:36 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:21:38 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_color {
 	unsigned int	g;
 	unsigned int	b;
 	double			i;
-} t_color;
+}	t_color;
 
 typedef struct s_data {
 	void	*img;
@@ -147,7 +147,7 @@ void			light_free(t_light *light);
 
 //Geometry Utils
 double			get_angle(t_coord *v1, t_coord *v2);
-double 			get_dist(t_coord a, t_coord b);
+double			get_dist(t_coord a, t_coord b);
 double			max(double a, double b);
 void			norm_vector(t_coord *v);
 void			vector_product(t_coord *a, t_coord *b, t_coord *res);
@@ -177,8 +177,8 @@ t_env			*parser(char *filename);
 void			parsing_error(char *msg);
 
 int				parse_ambiantlight(t_env *env, char **tab);
-int 			parse_light(t_env *env, char **tab);
-int 			parse_camera(t_env *env, char **tab);
+int				parse_light(t_env *env, char **tab);
+int				parse_camera(t_env *env, char **tab);
 int				parse_sphere(t_env *env, char **tab);
 int				parse_cylindre(t_env *env, char **tab);
 int				parse_plan(t_env *env, char **tab);
