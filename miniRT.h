@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/06 18:04:49 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:17:36 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_vars			*init_vars(void);
 
 //Cylinder Utils
 double			get_t(t_shapes *shape, t_line *line);
-int				check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t);
+double			check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t);
 
 //Shapes Finder
 double			sphere_finder(t_shapes *shape, t_line *line);
@@ -153,6 +153,7 @@ void			norm_vector(t_coord *v);
 void			vector_product(t_coord *a, t_coord *b, t_coord *res);
 void			coord_sub(t_coord *a, t_coord *b, t_coord *c);
 void			coord_cpy(t_coord *a, t_coord *b);
+t_coord			*get_vector_perp(t_coord *a, t_coord *b);
 
 //Matrix Rotation
 void			matrix_rotation(t_coord *p, double ax, double ay);

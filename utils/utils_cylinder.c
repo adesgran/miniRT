@@ -6,44 +6,31 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/07 13:44:58 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:17:11 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-static t_coord	*get_vector_perp(t_coord *a, t_coord *b)
-{
-	t_coord	*res;
-	t_coord	tmp;
-
-	res = malloc(sizeof(t_coord));
-	if (!res)
-		return (NULL);
-	vector_product(a, b, &tmp);
-	vector_product(&tmp, a, res);
-	return (res);
-}
-
 static double	t_calc(t_coord *va, t_coord *ra0, t_cylindre *cy)
 {
-	double		a;
-	double		b;
-	double		c;
-	double		delta;
+	float		a;
+	float		b;
+	float		c;
+	float		delta;
 	double		t1;
 	double		t2;
 	double		t;
 
-	a = pow(va->x, 2) + pow(va->y, 2) + pow(va->z, 2);
-	b = 2 * (ra0->x * va->x + ra0->y * va->y + ra0->z * va->z);
-	c = pow(ra0->x, 2) + pow(ra0->y, 2) +  pow(ra0->z, 2) - pow(cy->r, 2);
-	delta = pow(b, 2) - 4 * a * c;
-	if (delta < 0.000001)
+	a = pow(va->x, 2.0) + pow(va->y, 2.0) + pow(va->z, 2.0);
+	b = 2.0 * (ra0->x * va->x + ra0->y * va->y + ra0->z * va->z);
+	c = pow(ra0->x, 2.0) + pow(ra0->y, 2.0) +  pow(ra0->z, 2.0) - pow(cy->r, 2.0);
+	delta = pow(b, 2.0) - 4.0 * a * c;
+	if (delta <= 0.00000)
 		return (-1);
-	t1 = (-b - sqrt(delta)) / (2 * a);
-	t2 = (-b + sqrt(delta)) / (2 * a);
-	if (t1 > t2 && t2 > 0.000001)
+	t1 = (-b - sqrt(delta)) / (2.0 * a);
+	t2 = (-b + sqrt(delta)) / (2.0 * a);
+	if ((t1 > t2 && t2 >= 0.00000) || t1 <= 0.0000)
 		t = t2;
 	else
 		t = t1;
@@ -63,35 +50,37 @@ double	get_t(t_shapes *shape, t_line *line)
 	double		t;
 
 	cylindre = (t_cylindre *)shape->content;
-	ra1.x = cylindre->pos.x - (cylindre->h / 2) * cylindre->dir.x;
-	ra1.y = cylindre->pos.y - (cylindre->h / 2) * cylindre->dir.y;
-	ra1.z = cylindre->pos.z - (cylindre->h / 2) * cylindre->dir.z;
+	ra1.x = cylindre->pos.x - (cylindre->h / 2.0) * cylindre->dir.x;
+	ra1.y = cylindre->pos.y - (cylindre->h / 2.0) * cylindre->dir.y;
+	ra1.z = cylindre->pos.z - (cylindre->h / 2.0) * cylindre->dir.z;
 	coord_cpy(&s, &cylindre->dir);
 	norm_vector(&s);
 	r0a1.x = line->pos.x - ra1.x;
 	r0a1.y = line->pos.y - ra1.y;
 	r0a1.z = line->pos.z - ra1.z;
 	ra0 = get_vector_perp(&s, &r0a1);
+	//printf("x=%f y=%f z=%f\n", line->pos.x, line->pos.y, line->pos.z);
+	//printf("D = %f\n", sqrt(ra0->x * ra0->x + ra0->y * ra0->y + ra0->z * ra0->z));
 	//norm_vector(ra0);
+	//norm_vector(&shape->norm.dir);
+	norm_vector(&line->dir);
 	va = get_vector_perp(&s, &line->dir);
 	//norm_vector(va);
-	//coord_cpy(&shape->norm.dir, ra0);
-	coord_cpy(&shape->norm.dir, va);
-	//printf("%f\n", get_angle(&cylindre->dir, va));
+	//va->x *= sqrt(cylindre->r);
+	//va->y *= sqrt(cylindre->r);
+	//va->z *= sqrt(cylindre->r);
+	if (get_angle(ra0, va) < M_PI / 2)
+		return (-1);
+	printf("D = %f\n", sqrt(va->x * va->x + va->y * va->y + va->z * va->z));
+	//printf("%f\n", get_angle(&cylindre->dir, ra0));
 	if (!ra0 || !va)
 		return (free(ra0), free(va), -1);
 	t = t_calc(va, ra0, cylindre);
-	shape->norm.dir.x *= t;
-	shape->norm.dir.y *= t;
-	shape->norm.dir.z *= t;
-	shape->norm.dir.x += ra0->x;
-	shape->norm.dir.y += ra0->y;
-	shape->norm.dir.z += ra0->z;
-	norm_vector(&shape->norm.dir);
+	//norm_vector(&shape->norm.dir);
 	return (t);
 }
 
-int	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)
+double	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)
 {
 	t_coord	ra1;
 	t_coord	ra2;
