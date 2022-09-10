@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:00:24 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/07 13:48:02 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:21:45 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int	read_coord(char *str, t_coord *coord)
 	err = 0;
 	tab = ft_split(str, ',');
 	if (!tab || ft_tablen((void **)tab) != 3 || count_char(str, ',') != 2)
-		return (1);
+		return (ft_free_tabstr(tab), 1);
 	coord->x = atod(tab[0], &err);
 	if (err)
-		return (1);
+		return (ft_free_tabstr(tab), 1);
 	coord->y = atod(tab[1], &err);
 	if (err)
-		return (1);
+		return (ft_free_tabstr(tab), 1);
 	coord->z = atod(tab[2], &err);
-	return (0);
+	return (ft_free_tabstr(tab), 0);
 }

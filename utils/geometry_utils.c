@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:30:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/04 15:42:38 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/10 16:57:27 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,7 @@ double	max(double a, double b)
 
 void	vector_product(t_coord *a, t_coord *b, t_coord *res)
 {
-	double	coeff;
-
-	coeff = sqrt(pow(a->x, 2) + pow(a->y, 2) + pow(a->z, 2));
-	coeff *= sqrt(pow(b->x, 2) + pow(b->y, 2) + pow(b->z, 2));
-	coeff *= sin(get_angle(a, b));
 	res->x = a->y * b->z - a->z * b->y;
 	res->y = a->z * b->x - a->x * b->z;
 	res->z = a->x * b->y - a->y * b->x;
-	norm_vector(res);
-	res->x = res->x * coeff;
-	res->y *= coeff;
-	res->z *= coeff;
 }
