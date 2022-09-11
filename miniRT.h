@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 17:21:38 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:55:35 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_shapes {
 	void			*content;
 	int				type;
 	double			(*ft_finder)(struct s_shapes *, t_line *);
+	void			(*ft_norm)(struct s_shapes *, t_line *, double);
 	t_line			norm;
 	t_color			color;
 	struct s_shapes	*next;
@@ -100,6 +101,7 @@ typedef struct s_plan {
 	t_coord			pos;
 	t_coord			dir;
 	t_color			color;
+	double			r;
 }	t_plan;
 
 typedef struct s_light {
@@ -133,12 +135,17 @@ double			sphere_finder(t_shapes *shape, t_line *line);
 double			cylinder_finder(t_shapes *shape, t_line *line);
 double			plan_finder(t_shapes *shape, t_line *line);
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line);
+void			plan_norm(t_shapes *shape, t_line *line, double t);
+void			cylinder_norm(t_shapes *shape, t_line *line, double t);
+void			sphere_norm(t_shapes *shape, t_line *line, double t);
 
 //Colors
 unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape);
 
 //t_shapes Utils
-t_shapes		*shapes_new(void *content, t_color *color, double (*ft_finder)(t_shapes *, t_line *));
+t_shapes	*shapes_new(void *content, t_color *color,
+	double (*ft_finder)(t_shapes *, t_line *),
+	void (*ft_norm)(struct s_shapes *, t_line *, double));
 void			shapes_add(t_env *env, t_shapes *new);
 void			shapes_free(t_shapes *shapes);
 
@@ -147,7 +154,7 @@ void			light_free(t_light *light);
 
 //Geometry Utils
 double			get_angle(t_coord *v1, t_coord *v2);
-double			get_dist(t_coord a, t_coord b);
+double			get_dist(t_coord *a, t_coord *b);
 double			max(double a, double b);
 void			norm_vector(t_coord *v);
 void			vector_product(t_coord *a, t_coord *b, t_coord *res);

@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:49:12 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/06 18:10:16 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:45:18 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ void	push_light(t_env *env, t_light *light)
 			tmp = tmp->next;
 		tmp->next = light;
 	}
-	/*  TO SET FOR MANDATORY PART
-   else
-   		return (free(light));
-	*/
 }
 
 int	parse_light(t_env *env, char **tab)

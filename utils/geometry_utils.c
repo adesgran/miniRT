@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:30:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 16:57:27 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/11 15:11:09 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ double	get_angle(t_coord *v1, t_coord *v2)
 	return (acos(dir / (u * v)));
 }
 
-double	get_dist(t_coord a, t_coord b)
+double	get_dist(t_coord *a, t_coord *b)
 {
 	double	tmp;
 
-	tmp = pow(a.x - b.x, 2);
-	tmp += pow(a.y - b.y, 2);
-	tmp += pow(a.z - b.z, 2);
+	tmp = pow(a->x - b->x, 2);
+	tmp += pow(a->y - b->y, 2);
+	tmp += pow(a->z - b->z, 2);
 	return (sqrt(tmp));
 }
 

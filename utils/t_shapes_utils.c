@@ -6,14 +6,15 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:34:02 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/06 18:32:19 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:33:55 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
 t_shapes	*shapes_new(void *content, t_color *color,
-	double (*ft_finder)(t_shapes *, t_line *))
+	double (*ft_finder)(t_shapes *, t_line *),
+	void (*ft_norm)(struct s_shapes *, t_line *, double))
 {
 	t_shapes	*res;
 
@@ -22,6 +23,7 @@ t_shapes	*shapes_new(void *content, t_color *color,
 		return (NULL);
 	res->content = content;
 	res->ft_finder = ft_finder;
+	res->ft_norm = ft_norm;
 	color_cpy(color, &res->color);
 	res->next = NULL;
 	return (res);

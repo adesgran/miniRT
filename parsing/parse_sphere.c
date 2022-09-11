@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:17:39 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/06 18:29:49 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:32:21 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_sphere(t_env *env, char **tab)
 		return (parsing_error("Sphere: invalid diameter"), free(sp), 1);
 	if (read_color(tab[3], &sp->color))
 		return (parsing_error("Sphere: invalid color value"), free(sp), 1);
-	new_shape = shapes_new(sp, &sp->color, sphere_finder);
+	new_shape = shapes_new(sp, &sp->color, sphere_finder, sphere_norm);
 	if (!new_shape)
 		return (free(sp), 1);
 	shapes_add(env, new_shape);

@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:09:07 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/06 18:29:05 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:45:56 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	check_value(t_cylindre *cy)
 
 static int	read_args(t_cylindre *cy, char **tab)
 {
-	int			err;
+	int	err;
 
 	err = 0;
 	if (read_coord(tab[1], &(cy->pos)))
@@ -48,6 +48,27 @@ static int	read_args(t_cylindre *cy, char **tab)
 	return (0);
 }
 
+static int	add_plan(t_env *env, t_cylindre *cy, int coeff)
+{
+	t_plan		*p;
+	t_shapes	*new_shape;
+
+	p = malloc(sizeof(*p));
+	if (!p)
+		return (1);
+	coord_cpy(&p->dir, &cy->dir);
+	p->r = cy->r;
+	p->pos.x = cy->pos.x + coeff * cy->dir.x * cy->h / 2;
+	p->pos.y = cy->pos.y + coeff * cy->dir.y * cy->h / 2;
+	p->pos.z = cy->pos.z + coeff * cy->dir.z * cy->h / 2;
+	color_cpy(&cy->color, &p->color);
+	new_shape = shapes_new(p, &p->color, plan_finder, plan_norm);
+	if (!new_shape)
+		return (free(p), 1);
+	shapes_add(env, new_shape);
+	return (0);
+}
+
 int	parse_cylindre(t_env *env, char **tab)
 {
 	t_cylindre	*cy;
@@ -60,9 +81,11 @@ int	parse_cylindre(t_env *env, char **tab)
 		return (1);
 	if (read_args(cy, tab))
 		return (free(cy), 1);
-	new_shape = shapes_new(cy, &cy->color, cylinder_finder);
+	new_shape = shapes_new(cy, &cy->color, cylinder_finder, cylinder_norm);
 	if (!new_shape)
 		return (free(cy), 1);
 	shapes_add(env, new_shape);
+	if (add_plan(env, cy, 1) || add_plan(env, cy, -1))
+		return (1);
 	return (0);
 }
