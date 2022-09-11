@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 12:10:03 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 17:10:27 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:46:51 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ t_coord	*get_vector_perp(t_coord *a, t_coord *b)
 	vector_product(&tmp, a, res);
 	return (res);
 }
-

@@ -6,24 +6,26 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 17:14:40 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:26:28 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-static int	check_shadow(t_env *env, t_line *ray)
+static int	check_shadow(t_env *env, t_line *ray, t_coord *contact)
 {
 	t_shapes		*shapes;
 	double			u;
+	double			dist_light;
 	
 	shapes = env->shapes;
 	//(void)ray;
+	dist_light = get_dist(&env->light->pos, contact);
 	while (shapes)
 	{
 		u = shapes->ft_finder(shapes, ray);
 		//u = -1;
-		if (u >= 0.0001)
+		if (u > 0.00001 && u <  dist_light)
 			return (1);
 		shapes = shapes->next;
 	}
@@ -32,13 +34,13 @@ static int	check_shadow(t_env *env, t_line *ray)
 
 static double	get_difuse_light(t_env *env, t_line *ray, t_line *normale)
 {
-	return (KD * (env->light->color.i/pow(get_dist(ray->pos, env->light->pos), 2))
+	return (KD * (env->light->color.i/pow(get_dist(&ray->pos, &env->light->pos), 2))
 		* max(0, cos(get_angle(&normale->dir, &ray->dir))));
 }
 
 static double	get_specular_light(t_env *env, t_line *ray, t_line *normale, t_line *bisector)
 {
-	return (KS * (env->light->color.i/pow(get_dist(ray->pos, env->light->pos), 2))
+	return (KS * (env->light->color.i/pow(get_dist(&ray->pos, &env->light->pos), 2))
 		* pow(max(0, cos(get_angle(&normale->dir, &bisector->dir))), 100));
 }
 
@@ -65,6 +67,15 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 	t_color	tmp_w;
 	t_color	white;
 	
+	//if (get_angle(&shape->norm.dir, &line->dir) <= M_PI / 2)
+	if (0)
+	{
+		shape->norm.dir.x *= -1;
+		shape->norm.dir.y *= -1;
+		//printf("1%f\n", shape->norm.dir.z);
+		shape->norm.dir.z *= -1;
+		//printf("2%f\n", shape->norm.dir.z);
+	}
 	white.r = 255;
 	white.g = 255;
 	white.b = 255;
@@ -79,7 +90,7 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 	norm_vector(&bisector.dir);
 	ld = 0;
 	ls = 0;
-	if (!check_shadow(env, &ray))
+	if (!check_shadow(env, &ray, &shape->norm.pos))
 	{
 		ld = get_difuse_light(env, &ray, &shape->norm);
 		ls = get_specular_light(env, &ray, &shape->norm, &bisector);
