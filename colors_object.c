@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 17:26:28 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:21:46 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	check_shadow(t_env *env, t_line *ray, t_coord *contact)
 	while (shapes)
 	{
 		u = shapes->ft_finder(shapes, ray);
-		//u = -1;
-		if (u > 0.00001 && u <  dist_light)
+		//u = -2;
+		if (u > 0.0001 && u <  dist_light)
 			return (1);
 		shapes = shapes->next;
 	}
