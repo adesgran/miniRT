@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:08:30 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/07 13:33:21 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:31:58 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	parse_plan(t_env *env, char **tab)
 	pl = malloc(sizeof(t_plan));
 	if (!pl)
 		return (1);
+	pl->r = -1;
 	if (read_coord(tab[1], &(pl->pos)))
 		return (parsing_error("Plane: invalid position coordinates"),
 			free(pl), 1);
@@ -33,7 +34,7 @@ int	parse_plan(t_env *env, char **tab)
 			free(pl), 1);
 	if (read_color(tab[3], &pl->color))
 		return (parsing_error("Plane: invalid color value"), free(pl), 1);
-	new_shape = shapes_new(pl, &pl->color, plan_finder);
+	new_shape = shapes_new(pl, &pl->color, plan_finder, plan_norm);
 	if (!new_shape)
 		return (free(pl), 1);
 	shapes_add(env, new_shape);

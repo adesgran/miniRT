@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:34:14 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/06 18:29:21 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:25:31 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static int	fill_env(char *line, t_env *env)
 	else if (!ft_strcmp(tab[0], "pl"))
 		ret = parse_plan(env, tab);
 	else
+	{
+		parsing_error("Unknown object");
 		ret = 1;
+	}
 	return (ft_free_tabstr(tab), ret);
 }
 

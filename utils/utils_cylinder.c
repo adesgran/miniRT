@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 17:24:36 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:54:10 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static double	t_calc(t_coord *va, t_coord *ra0, t_cylindre *cy)
 		t = t2;
 	else
 		t = t1;
-	free(va);
-	free(ra0);
 	return (t);
 }
 
@@ -74,7 +72,7 @@ double	get_t(t_shapes *shape, t_line *line)
 		return (free(ra0), free(va), -1);
 	t = t_calc(va, ra0, cylindre);
 	//norm_vector(&shape->norm.dir);
-	return (t);
+	return (free(va), free(ra0), t);
 }
 
 double	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)

@@ -6,11 +6,26 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 12:41:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 16:14:10 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:13:20 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
+
+void	sphere_norm(t_shapes *shape, t_line *line, double t)
+{
+	t_sphere	*sphere;
+
+	//printf("HERE\n");
+	sphere = (t_sphere *)shape->content;
+	shape->norm.pos.x = line->pos.x + t * line->dir.x;
+	shape->norm.pos.y = line->pos.y + t * line->dir.y;
+	shape->norm.pos.z = line->pos.z + t * line->dir.z;
+	shape->norm.dir.x = shape->norm.pos.x - sphere->pos.x;
+	shape->norm.dir.y = shape->norm.pos.y - sphere->pos.y;
+	shape->norm.dir.z = shape->norm.pos.z - sphere->pos.z;
+	//norm_vector(&shape->norm.dir);
+}
 
 /* if res < 0 : no intersection
 if res == 0 : 1 intersection (if u < 0 : sphere is behind camera)
@@ -52,11 +67,5 @@ double	sphere_finder(t_shapes *shape, t_line *line)
 		* (sphere->pos.x * line->pos.x + sphere->pos.y * line->pos.y
 			+ sphere->pos.z * line->pos.z) - sphere->r * sphere->r;
 	u = sp_get_intersection(a, b, c);
-	shape->norm.pos.x = line->pos.x + u * line->dir.x;
-	shape->norm.pos.y = line->pos.y + u * line->dir.y;
-	shape->norm.pos.z = line->pos.z + u * line->dir.z;
-	shape->norm.dir.x = shape->norm.pos.x - sphere->pos.x;
-	shape->norm.dir.y = shape->norm.pos.y - sphere->pos.y;
-	shape->norm.dir.z = shape->norm.pos.z - sphere->pos.z;
 	return (u);
 }

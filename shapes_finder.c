@@ -6,12 +6,17 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:48:57 by mchassig          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/10 18:01:53 by mchassig         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/11 17:05:29 by adesgran         ###   ########.fr       */
+>>>>>>> ecab62086d01e202ed42da3fec50321aee04fa96
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
+<<<<<<< HEAD
 double	plan_finder(t_shapes *shape, t_line *line)
 {
 	t_plan	*plan;
@@ -43,6 +48,8 @@ double	plan_finder(t_shapes *shape, t_line *line)
 	return (u);
 }
 
+=======
+>>>>>>> ecab62086d01e202ed42da3fec50321aee04fa96
 unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 {
 	double			u;
@@ -65,6 +72,7 @@ unsigned int	shapes_finder(t_env *env, t_shapes *shapes, t_line *line)
 	}
 	if (min >= 0)
 	{
+		tmp->ft_norm(tmp, line, min);
 		color = get_shape_color(env, line, tmp);
 	}
 	(void)tmp;
