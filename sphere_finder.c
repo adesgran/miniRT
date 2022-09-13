@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 12:41:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 17:13:20 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:08:54 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ static double	sp_get_intersection(double a, double b, double c)
 	double	u;
 
 	res = b * b - 4 * a * c;
-	if (res < 0)
+	if (res < 0.001)
 		u = -1;
-	else if (res == 0)
-		u = -b / (2 * a);
-	else if (res > 0)
+	else
 	{
 		u = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
-		if (u < 0)
+		if (u < 0.001)
 			u = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
 	}
 	return (u);
