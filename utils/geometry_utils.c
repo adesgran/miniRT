@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:30:35 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 15:11:09 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:57:27 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ double	get_angle(t_coord *v1, t_coord *v2)
 			+ (v1->z * v2->z));
 	u = sqrt(pow(v1->x, 2) + pow(v1->y, 2) + pow(v1->z, 2));
 	v = sqrt(pow(v2->x, 2) + pow(v2->y, 2) + pow(v2->z, 2));
+	if (fabs(1 - dir / (u * v)) < 0.000001)
+		return (0);
 	return (acos(dir / (u * v)));
 }
 

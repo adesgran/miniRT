@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/13 13:21:46 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:07:55 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_shadow(t_env *env, t_line *ray, t_coord *contact)
 	{
 		u = shapes->ft_finder(shapes, ray);
 		//u = -2;
-		if (u > 0.0001 && u <  dist_light)
+		if (u > 0.000 && u <  dist_light)
 			return (1);
 		shapes = shapes->next;
 	}
@@ -34,6 +34,9 @@ static int	check_shadow(t_env *env, t_line *ray, t_coord *contact)
 
 static double	get_difuse_light(t_env *env, t_line *ray, t_line *normale)
 {
+	//printf("angle2 = %f\n", get_angle(&normale->dir, &ray->dir));
+	if (get_angle(&normale->dir, &ray->dir) > M_PI / 2)
+		return (0);
 	return (KD * (env->light->color.i/pow(get_dist(&ray->pos, &env->light->pos), 2))
 		* max(0, cos(get_angle(&normale->dir, &ray->dir))));
 }
@@ -67,8 +70,11 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 	t_color	tmp_w;
 	t_color	white;
 	
-	//if (get_angle(&shape->norm.dir, &line->dir) <= M_PI / 2)
-	if (0)
+	//if (0)
+	norm_vector(&shape->norm.dir);
+	//printf("x=%f y=%f z=%f\n", line->dir.x, line->dir.y, line->dir.z);
+	//printf("angle1 = %f\n", get_angle(&shape->norm.dir, &line->dir));
+	if (get_angle(&shape->norm.dir, &line->dir) <= M_PI / 2)
 	{
 		shape->norm.dir.x *= -1;
 		shape->norm.dir.y *= -1;
