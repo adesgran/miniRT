@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/10 15:25:42 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:29:35 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ t_line	*linecpy(t_camera *camera, double ax, double ay)
 	line = malloc(sizeof(t_line));
 	if (!line)
 		return (NULL);
-	line->pos.x = camera->pos.x;
-	line->pos.y = camera->pos.y;
-	line->pos.z = camera->pos.z;
 	line->dir.x = camera->dir.x;
 	line->dir.y = camera->dir.y;
 	line->dir.z = camera->dir.z;
 	norm_vector(&line->dir);
 	matrix_rotation(&(line->dir), ax, ay);
+	line->pos.x = camera->pos.x + line->dir.x * 0.00001;
+	line->pos.y = camera->pos.y + line->dir.y * 0.00001;
+	line->pos.z = camera->pos.z + line->dir.z * 0.00001;
 	return (line);
 }
 
