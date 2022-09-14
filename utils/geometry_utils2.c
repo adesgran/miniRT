@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 12:10:03 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 17:46:51 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/14 12:54:12 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,11 @@ t_coord	*get_vector_perp(t_coord *a, t_coord *b)
 	vector_product(a, b, &tmp);
 	vector_product(&tmp, a, res);
 	return (res);
+}
+
+unsigned int	min(unsigned int x, unsigned int y)
+{
+	if (x < y)
+		return (x);
+	return (y);
 }
