@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/14 12:32:53 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/14 13:12:50 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define KEY_ZOOM_OUT 65453
 # define KEY_ROT_LEFT 113
 # define KEY_ROT_RIGHT 101
-# define W_HEIGHT 1000
-# define W_WIDTH 1000
+# define W_HEIGHT 100
+# define W_WIDTH 100
 # define SPHERE 101
 # define CYLINDRE 102
 # define PLAN 103
@@ -161,6 +161,7 @@ void			vector_product(t_coord *a, t_coord *b, t_coord *res);
 void			coord_sub(t_coord *a, t_coord *b, t_coord *c);
 void			coord_cpy(t_coord *a, t_coord *b);
 t_coord			*get_vector_perp(t_coord *a, t_coord *b);
+unsigned int	min(unsigned int x, unsigned int y);
 
 //Matrix Rotation
 void			matrix_rotation(t_coord *p, double ax, double ay);
@@ -172,6 +173,7 @@ void			color_ratio(t_color *c1, double ratio, t_color *res);
 unsigned int	color_to_ui(t_color color);
 void			color_cpy(t_color *c1, t_color *c2);
 void			color_add(t_color *res, t_color *to_add);
+void			color_sub(t_color *c1, t_color *c2, t_color *res);
 
 //Env Utils
 void			env_free(t_env *env);
