@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 17:55:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/14 12:32:53 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void			color_product(t_color *c1, t_color *c2, t_color *res);
 void			color_ratio(t_color *c1, double ratio, t_color *res);
 unsigned int	color_to_ui(t_color color);
 void			color_cpy(t_color *c1, t_color *c2);
+void			color_add(t_color *res, t_color *to_add);
 
 //Env Utils
 void			env_free(t_env *env);
