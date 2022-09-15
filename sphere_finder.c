@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 12:41:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/13 14:08:54 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:32:01 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sphere_norm(t_shapes *shape, t_line *line, double t)
 	shape->norm.dir.x = shape->norm.pos.x - sphere->pos.x;
 	shape->norm.dir.y = shape->norm.pos.y - sphere->pos.y;
 	shape->norm.dir.z = shape->norm.pos.z - sphere->pos.z;
-	//norm_vector(&shape->norm.dir);
+	norm_vector(&shape->norm.dir);
 }
 
 /* if res < 0 : no intersection

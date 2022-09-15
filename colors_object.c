@@ -6,26 +6,25 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/14 13:14:38 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:33:37 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-static int	check_shadow(t_env *env, t_light *light, t_line *ray, t_coord *contact)
+static int	check_shadow(t_env *env, t_light *light, t_line *ray,
+t_coord *contact)
 {
 	t_shapes		*shapes;
 	double			u;
 	double			dist_light;
 
 	shapes = env->shapes;
-	//(void)ray;
 	dist_light = get_dist(&light->pos, contact);
 	while (shapes)
 	{
 		u = shapes->ft_finder(shapes, ray);
-		//u = -2;
-		if (u > 0.0001 && u <  dist_light)
+		if (u > 0.0001 && u < dist_light)
 			return (1);
 		shapes = shapes->next;
 	}
@@ -34,17 +33,19 @@ static int	check_shadow(t_env *env, t_light *light, t_line *ray, t_coord *contac
 
 static double	get_difuse_light(t_env *env, t_line *ray, t_line *normale)
 {
-	//printf("angle2 = %f\n", get_angle(&normale->dir, &ray->dir));
 	if (get_angle(&normale->dir, &ray->dir) > M_PI / 2)
 		return (0);
-	return (KD * (env->light->color.i/pow(get_dist(&ray->pos, &env->light->pos), 2))
-			* max(0, cos(get_angle(&normale->dir, &ray->dir))));
+	return (KD * (env->light->color.i
+			/ pow(get_dist(&ray->pos, &env->light->pos), 2))
+		* max(0, cos(get_angle(&normale->dir, &ray->dir))));
 }
 
-static double	get_specular_light(t_env *env, t_line *ray, t_line *normale, t_line *bisector)
+static double	get_specular_light(t_env *env, t_line *ray, t_line *normale,
+t_line *bisector)
 {
-	return (KS * (env->light->color.i/pow(get_dist(&ray->pos, &env->light->pos), 2))
-			* pow(max(0, cos(get_angle(&normale->dir, &bisector->dir))), 100));
+	return (KS * (env->light->color.i
+			/ pow(get_dist(&ray->pos, &env->light->pos), 2))
+		* pow(max(0, cos(get_angle(&normale->dir, &bisector->dir))), 100));
 }
 
 static void	init_ray(t_light *light, t_line *norm, t_line *ray)
@@ -70,17 +71,11 @@ unsigned int	get_shape_color(t_env *env, t_line *line, t_shapes *shape)
 	t_color	tmp2;
 	t_light	*light;
 
-	//if (0)
-	norm_vector(&shape->norm.dir);
-	//printf("x=%f y=%f z=%f\n", line->dir.x, line->dir.y, line->dir.z);
-	//printf("angle1 = %f\n", get_angle(&shape->norm.dir, &line->dir));
 	if (get_angle(&shape->norm.dir, &line->dir) <= M_PI / 2)
 	{
 		shape->norm.dir.x *= -1;
 		shape->norm.dir.y *= -1;
-		//printf("1%f\n", shape->norm.dir.z);
 		shape->norm.dir.z *= -1;
-		//printf("2%f\n", shape->norm.dir.z);
 	}
 	la = KA * env->ambiant_light->i;
 	ld = 0;
