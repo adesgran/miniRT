@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:36:50 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/15 14:50:32 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:01:25 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_line *bisector)
 		* pow(max(0, cos(get_angle(&normale->dir, &bisector->dir))), 100));
 }
 
-void	add_color(t_color *c1, t_color *res, double coeff)
+void	add_color(t_color *c1, double coeff, t_color *res)
 {
 	t_color	tmp;
 

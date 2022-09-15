@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/15 14:25:42 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:59:28 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_vars			*init_vars(void);
 int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH]);
 
 //Cylinder Utils
-double			get_t(t_shapes *shape, t_line *line);
+double			get_t(t_cylindre *cylindre, t_line *line);
 double			check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t);
 
 //Shapes Finder

@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 15:13:18 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 16:40:14 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:59:56 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ double	cylinder_finder(t_shapes *shape, t_line *line)
 
 	cylindre = (t_cylindre *)shape->content;
 	color_cpy(&cylindre->color, &shape->color);
-	t = get_t(shape, line);
+	t = get_t(cylindre, line);
 	if (t < 0)
 		return (-1);
 	coord_cpy(&sline.dir, &cylindre->dir);
