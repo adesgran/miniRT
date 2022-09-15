@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/15 14:59:28 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:54:02 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void			put_pixel(t_data *img, int x, int y, ...);
 t_vars			*init_vars(void);
 
 //Ray Caster
-int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH]);
+int	minirt(t_env *env, unsigned int **tab_color);
 
 //Cylinder Utils
 double			get_t(t_cylindre *cylindre, t_line *line);
@@ -206,5 +206,9 @@ int				read_color(char *str, t_color *color);
 // Read Coord
 int				check_dir(t_coord *dir);
 int				read_coord(char *str, t_coord *coord);
+
+// Tab Color
+void			free_tab_color(unsigned int **tab);
+unsigned int	**set_table(void);
 
 #endif

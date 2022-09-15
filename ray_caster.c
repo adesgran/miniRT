@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:41:20 by mchassig          #+#    #+#             */
-/*   Updated: 2022/09/15 14:06:08 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:55:42 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ static t_line	*linecpy(t_camera *camera, double ax, double ay)
 	return (line);
 }
 
-int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH])
+void	print_per(double x)
+{
+	ft_printf("\r%d%%", (int)x);
+}
+
+int	minirt(t_env *env, unsigned int **tab_color)
 {
 	int				i;
 	int				j;
@@ -54,6 +59,7 @@ int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH])
 			tab_color[i][j] = shapes_finder(env, env->shapes, line);
 			free(line);
 		}
+		ft_printf("\r%d%%", (int)(0.5 + 100 * (double)j / W_HEIGHT));
 	}
 	return (0);
 }
