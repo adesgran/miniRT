@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:41:20 by mchassig          #+#    #+#             */
-/*   Updated: 2022/09/15 13:43:09 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:06:08 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,3 @@ int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH])
 	}
 	return (0);
 }
-

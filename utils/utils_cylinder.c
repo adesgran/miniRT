@@ -6,11 +6,19 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/15 13:24:50 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:16:31 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
+
+static double	t_cmp(double t1, double t2)
+{
+	if ((t1 > t2 && t2 >= 0.00000) || t1 <= 0.0000)
+		return (t2);
+	else
+		return (t1);
+}
 
 static double	t_calc(t_coord *va, t_coord *ra0, t_cylindre *cy)
 {
@@ -18,23 +26,16 @@ static double	t_calc(t_coord *va, t_coord *ra0, t_cylindre *cy)
 	float		b;
 	float		c;
 	float		delta;
-	double		t1;
-	double		t2;
-	double		t;
 
 	a = pow(va->x, 2.0) + pow(va->y, 2.0) + pow(va->z, 2.0);
 	b = 2.0 * (ra0->x * va->x + ra0->y * va->y + ra0->z * va->z);
-	c = pow(ra0->x, 2.0) + pow(ra0->y, 2.0) +  pow(ra0->z, 2.0) - pow(cy->r, 2.0);
+	c = pow(ra0->x, 2.0) + pow(ra0->y, 2.0) + pow(ra0->z, 2.0)
+		- pow(cy->r, 2.0);
 	delta = pow(b, 2.0) - 4.0 * a * c;
 	if (delta <= 0.00000)
 		return (-1);
-	t1 = (-b - sqrt(delta)) / (2.0 * a);
-	t2 = (-b + sqrt(delta)) / (2.0 * a);
-	if ((t1 > t2 && t2 >= 0.00000) || t1 <= 0.0000)
-		t = t2;
-	else
-		t = t1;
-	return (t);
+	return (t_cmp((-b - sqrt(delta)) / (2.0 * a),
+			(-b + sqrt(delta)) / (2.0 * a)));
 }
 
 double	get_t(t_shapes *shape, t_line *line)
@@ -84,8 +85,9 @@ double	check_collision(t_cylindre *cy, t_line *sline, t_line *line, double t)
 	ra2.z -= cy->pos.z + (cy->h / 2) * cy->dir.z;
 	norm_vector(&ra1);
 	norm_vector(&ra2);
-	if (cos(get_angle(&ra1, &sline->dir)) > 0 && cos(get_angle(&ra2, &sline->dir)) < 0)
-		return (t); //Read as a sphere
+	if (cos(get_angle(&ra1, &sline->dir)) > 0
+		&& cos(get_angle(&ra2, &sline->dir)) < 0)
+		return (t);
 	else
-		return (-1); //Read as a plan
+		return (-1);
 }
