@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:20:05 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 17:54:10 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:24:50 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,11 @@ double	get_t(t_shapes *shape, t_line *line)
 	r0a1.y = line->pos.y - ra1.y;
 	r0a1.z = line->pos.z - ra1.z;
 	ra0 = get_vector_perp(&s, &r0a1);
-	//printf("x=%f y=%f z=%f\n", line->pos.x, line->pos.y, line->pos.z);
-	//printf("D = %f\n", sqrt(ra0->x * ra0->x + ra0->y * ra0->y + ra0->z * ra0->z));
-	//norm_vector(ra0);
-	//norm_vector(&shape->norm.dir);
 	norm_vector(&line->dir);
 	va = get_vector_perp(&s, &line->dir);
-	//norm_vector(va);
-	//va->x *= sqrt(cylindre->r);
-	//va->y *= sqrt(cylindre->r);
-	//va->z *= sqrt(cylindre->r);
-	//printf("%f\n", get_angle(&cylindre->dir, ra0));
 	if (!ra0 || !va)
 		return (free(ra0), free(va), -1);
 	t = t_calc(va, ra0, cylindre);
-	//norm_vector(&shape->norm.dir);
 	return (free(va), free(ra0), t);
 }
 

@@ -6,11 +6,21 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 01:56:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/13 15:29:35 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:42:57 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
+
+void	free_mlx(t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->img->img);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
+	free(vars->img);
+	free(vars);
+}
 
 int	get_key(int keycode, t_vars *vars)
 {
@@ -21,54 +31,6 @@ int	get_key(int keycode, t_vars *vars)
 	}
 	printf("\033[0;33mKEYCODE = %d\033[0m\n", keycode);
 	return (0);
-}
-
-t_line	*linecpy(t_camera *camera, double ax, double ay)
-{
-	t_line	*line;
-
-	line = malloc(sizeof(t_line));
-	if (!line)
-		return (NULL);
-	line->dir.x = camera->dir.x;
-	line->dir.y = camera->dir.y;
-	line->dir.z = camera->dir.z;
-	norm_vector(&line->dir);
-	matrix_rotation(&(line->dir), ax, ay);
-	line->pos.x = camera->pos.x + line->dir.x * 0.00001;
-	line->pos.y = camera->pos.y + line->dir.y * 0.00001;
-	line->pos.z = camera->pos.z + line->dir.z * 0.00001;
-	return (line);
-}
-
-//Fonction Principale
-int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH])
-{
-	int				i;
-	int				j;
-	double			ax;
-	double			ay;
-	t_line			*line;
-	
-	j = 0;
-	while (j < W_HEIGHT)
-	{
-		ax = env->camera->fov / W_WIDTH * (W_HEIGHT / 2.0 - (double)j) * M_PI / 180.0;
-		i = 0;
-		while (i < W_WIDTH)
-		{
-			ay = env->camera->fov * ((double)i / W_WIDTH - 1.0 / 2.0) * M_PI / 180.0;
-			line = linecpy(env->camera, -ax, ay);
-			if (!line)
-				return (1);
-			tab_color[i][j]  = shapes_finder(env, env->shapes, line);
-			free(line);
-			//printf("\r%.2f%%", ((double)j * 100.0) / (double)W_HEIGHT);
-			i++;
-		}
-		j++;
-	}
-	return (printf("\r100%%\ncalcul end\n"), 0);
 }
 
 void	show_all(t_vars *vars, unsigned int tab[W_HEIGHT][W_WIDTH])
@@ -97,11 +59,11 @@ int	main(int ac, char **av)
 	unsigned int	tab_color[W_HEIGHT][W_WIDTH];
 
 	if (ac != 2)
-		return (ft_putstr_fd("\033[0;31mWrong number of arguments\033[0m\n", 2), 2);
+		return (ft_putstr_fd("\033[0;31mWrong number of arguments\033[0m\n", 2)
+			, 2);
 	env = parser(av[1]);
 	if (!env)
 		return (1);
-	printf("ENV DONE\n");
 	minirt(env, tab_color);
 	vars = init_vars();
 	if (!vars)
@@ -111,12 +73,5 @@ int	main(int ac, char **av)
 	mlx_hook(vars->win, 2, 1L << 0, get_key, vars);
 	mlx_hook(vars->win, 17, 1L << 5, mlx_loop_end, vars->mlx);
 	mlx_loop(vars->mlx);
-	mlx_destroy_image(vars->mlx, vars->img->img);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
-	free(vars->img);
-	free(vars);
-	env_free(env);
-	return (0);
+	return (free_mlx(vars), env_free(env), 0);
 }

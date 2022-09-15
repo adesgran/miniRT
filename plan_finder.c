@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plan_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/11 16:49:59 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:33:03 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	plan_norm(t_shapes *shape, t_line *line, double u)
 	shape->norm.dir.x = plan->dir.x;
 	shape->norm.dir.y = plan->dir.y;
 	shape->norm.dir.z = plan->dir.z;
+	norm_vector(&shape->norm.dir);
 }
 
 double	plan_finder(t_shapes *shape, t_line *line)

@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/14 13:12:50 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:42:06 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define KEY_ZOOM_OUT 65453
 # define KEY_ROT_LEFT 113
 # define KEY_ROT_RIGHT 101
-# define W_HEIGHT 100
-# define W_WIDTH 100
+# define W_HEIGHT 1000
+# define W_WIDTH 1000
 # define SPHERE 101
 # define CYLINDRE 102
 # define PLAN 103
@@ -125,6 +125,9 @@ typedef struct s_env {
 
 void			put_pixel(t_data *img, int x, int y, ...);
 t_vars			*init_vars(void);
+
+//Ray Caster
+int	minirt(t_env *env, unsigned int tab_color[W_HEIGHT][W_WIDTH]);
 
 //Cylinder Utils
 double			get_t(t_shapes *shape, t_line *line);
