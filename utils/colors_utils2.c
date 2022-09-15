@@ -6,7 +6,7 @@
 /*   By: adesgran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:23:55 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/14 12:54:59 by adesgran         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:23:13 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,12 @@ void	color_sub(t_color *c1, t_color *c2, t_color *res)
 	res->r = min(c1->r, c2->r);
 	res->g = min(c1->g, c2->g);
 	res->b = min(c1->b, c2->b);
+}
+
+void	color_black(t_color *c)
+{
+	c->r = 0;
+	c->g = 0;
+	c->b = 0;
+	c->i = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:34:52 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/15 13:42:06 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:25:42 by adesgran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,9 @@ void			coord_sub(t_coord *a, t_coord *b, t_coord *c);
 void			coord_cpy(t_coord *a, t_coord *b);
 t_coord			*get_vector_perp(t_coord *a, t_coord *b);
 unsigned int	min(unsigned int x, unsigned int y);
+void			set_bisector(t_line *ray, t_line *line, t_line *bisector);
+void			set_norm_dir(t_coord *normdir, t_coord *linedir);
+void			init_ray(t_light *light, t_line *norm, t_line *ray);
 
 //Matrix Rotation
 void			matrix_rotation(t_coord *p, double ax, double ay);
@@ -177,6 +180,7 @@ unsigned int	color_to_ui(t_color color);
 void			color_cpy(t_color *c1, t_color *c2);
 void			color_add(t_color *res, t_color *to_add);
 void			color_sub(t_color *c1, t_color *c2, t_color *res);
+void			color_black(t_color *c);
 
 //Env Utils
 void			env_free(t_env *env);
