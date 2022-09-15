@@ -6,7 +6,7 @@
 /*   By: mchassig <mchassig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 12:41:43 by adesgran          #+#    #+#             */
-/*   Updated: 2022/09/15 13:32:01 by mchassig         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:06:14 by mchassig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	sphere_norm(t_shapes *shape, t_line *line, double t)
 {
 	t_sphere	*sphere;
 
-	//printf("HERE\n");
 	sphere = (t_sphere *)shape->content;
 	shape->norm.pos.x = line->pos.x + t * line->dir.x;
 	shape->norm.pos.y = line->pos.y + t * line->dir.y;
